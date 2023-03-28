@@ -1,0 +1,3 @@
+class MyList {
+  MyList._();
+}
