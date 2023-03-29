@@ -16,52 +16,14 @@ class LoginState with ChangeNotifier {
     notifyListeners();
   }
 
-  bool _requesting = false;
+  bool _isLoginMode = false;
 
-  bool get requesting => _requesting;
+  bool get isLoginMode => _isLoginMode;
 
-  void setRequesting(bool val) {
-    _requesting = val;
+  void setIsLoginMode(bool val) {
+    _isLoginMode = val;
     notifyListeners();
   }
 
-  String? _token;
-
-  String get token => _token!;
-
-  void setToken(String? val) {
-    _token = val;
-    notifyListeners();
-  }
-
-  final TextEditingController bookingRefNameC = TextEditingController();
-  final TextEditingController lastNameC = TextEditingController();
-
-  bool _isLastNameEmpty = false;
-
-  bool get isLastNameEmpty => _isLastNameEmpty;
-
-  void setIsLastNameEmpty(bool val) {
-    _isLastNameEmpty = val;
-    notifyListeners();
-  }
-
-  bool _isBookingRefNameEmpty = false;
-
-  bool get isBookingRefNameEmpty => _isBookingRefNameEmpty;
-
-  void setIsBookingRefNameEmpty(bool val) {
-    _isBookingRefNameEmpty = val;
-    notifyListeners();
-  }
-
-  void resetLoginState() {
-    setLoginLoading(false);
-    setRequesting(false);
-    setToken(null);
-    bookingRefNameC.clear();
-    lastNameC.clear();
-    setIsLastNameEmpty(false);
-    setIsBookingRefNameEmpty(false);
-  }
+  String? token;
 }
