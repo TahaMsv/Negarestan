@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:negarestan/screens/People/people_view_mobile.dart';
+import '../../screens/home/home_view_mobile.dart';
 import '../../screens/login/login_state.dart';
 import '../../screens/login/login_view_mobile.dart';
+import '../../screens/projects/projects_view_mobile.dart';
+import '../../screens/search_screen/search_view_mobile.dart';
 import '../constants/route_names.dart';
 import '../dependency_injection.dart';
 
@@ -38,29 +42,84 @@ class MyRouter {
             // }
             return LoginView();
           }),
-      // ShellRoute(
-      //   navigatorKey: _shellNavigatorKey,
-      //   builder: (BuildContext context, GoRouterState state, Widget child) {
-      //     switch (DeviceInfo.deviceType(context)) {
-      //       case DeviceType.tablet:
-      //         return StepsViewTablet(childWidget: Center(child: child));
-      //       case DeviceType.desktop:
-      //         return StepsViewWeb(childWidget: Center(child: child));
-      //       case DeviceType.web:
-      //         return StepsViewWeb(childWidget: Center(child: child));
-      //       case DeviceType.phone:
-      //         return StepsView(childWidget: Center(child: child));
-      //       default:
-      //         return StepsView(childWidget: Center(child: child));
-      //     }
-      //   },
-      //   routes: <RouteBase>[
-      //
-      //   ],
-      // ),
+      ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (BuildContext context, GoRouterState state, Widget child) {
+          // switch (DeviceInfo.deviceType(context)) {
+          // case DeviceType.tablet:
+          //   return StepsViewTablet(childWidget: Center(child: child));
+          // case DeviceType.desktop:
+          //   return StepsViewWeb(childWidget: Center(child: child));
+          // case DeviceType.web:
+          //   return StepsViewWeb(childWidget: Center(child: child));
+          // case DeviceType.phone:
+          //   return StepsView(childWidget: Center(child: child));
+          // default:
+          return HomeView(
+            childWidget: child,
+          );
+          // }
+        },
+        routes: <RouteBase>[
+          GoRoute(
+            path: RouteNames.projects,
+            name: RouteNames.projects,
+            builder: (BuildContext context, GoRouterState state) {
+              // switch (DeviceInfo.deviceType(context)) {
+              //   case DeviceType.tablet:
+              //     return AddTravelerViewTablet();
+              //   case DeviceType.desktop:
+              //     return AddTravelerViewWeb();
+              //   case DeviceType.web:
+              //     return AddTravelerViewWeb();
+              //   case DeviceType.phone:
+              //     return AddTravelerView();
+              //   default:
+              return ProjectsView();
+              // }
+            },
+          ),
+          GoRoute(
+            path: RouteNames.people,
+            name: RouteNames.people,
+            builder: (BuildContext context, GoRouterState state) {
+              // switch (DeviceInfo.deviceType(context)) {
+              //   case DeviceType.tablet:
+              //     return AddTravelerViewTablet();
+              //   case DeviceType.desktop:
+              //     return AddTravelerViewWeb();
+              //   case DeviceType.web:
+              //     return AddTravelerViewWeb();
+              //   case DeviceType.phone:
+              //     return AddTravelerView();
+              //   default:
+              return PeopleView();
+              // }
+            },
+          ),
+          GoRoute(
+            path: RouteNames.search,
+            name: RouteNames.search,
+            builder: (BuildContext context, GoRouterState state) {
+              // switch (DeviceInfo.deviceType(context)) {
+              //   case DeviceType.tablet:
+              //     return AddTravelerViewTablet();
+              //   case DeviceType.desktop:
+              //     return AddTravelerViewWeb();
+              //   case DeviceType.web:
+              //     return AddTravelerViewWeb();
+              //   case DeviceType.phone:
+              //     return AddTravelerView();
+              //   default:
+              return ProjectsView();
+              // }
+            },
+          ),
+        ],
+      ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.login,
+      initialLocation: RouteNames.people,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {

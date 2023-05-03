@@ -53,6 +53,7 @@ dependencies:
   flash: ^2.0.3+2
   toggle_switch: ^2.0.1
   social_login_buttons: ^1.0.7
+  responsive_grid_list: ^1.3.2
 
 dev_dependencies:
   flutter_test:

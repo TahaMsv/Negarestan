@@ -11,4 +11,6 @@ class AssetImages {
   static const loginBG6 = '${backgroundFolder}bg6.jpg';
   static const loginBG7 = '${backgroundFolder}bg7.jpg';
   static const google_logo = '${assetsAddress}google_logo.png';
+  static const admin_image = '${assetsAddress}admin.png';
+  static const app_logo = '${assetsAddress}app_logo.png';
 }

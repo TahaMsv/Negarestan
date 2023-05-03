@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:negarestan/screens/People/people_state.dart';
+import 'package:negarestan/screens/home/home_state.dart';
+import 'package:negarestan/screens/projects/projects_state.dart';
+import 'package:negarestan/screens/search_screen/search_state.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/apis.dart';
@@ -7,7 +11,6 @@ import 'core/dependency_injection.dart';
 import 'core/utils/app_config.dart';
 import 'my_app.dart';
 import 'screens/login/login_state.dart';
-
 
 void main() async {
   // initializeDateFormatting();
@@ -19,14 +22,18 @@ void main() async {
     // logoAddress: AssetImages.artemis
   );
   WidgetsFlutterBinding.ensureInitialized();
-   // MyRouter.initialize();
+  // MyRouter.initialize();
   await init();
   //
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => getIt<LoginState>()),
+      ChangeNotifierProvider(create: (_) => getIt<HomeState>()),
+      ChangeNotifierProvider(create: (_) => getIt<SearchState>()),
+      ChangeNotifierProvider(create: (_) => getIt<ProjectsState>()),
+      ChangeNotifierProvider(create: (_) => getIt<PeopleState>()),
     ],
-    child:  MyApp(),
+    child: MyApp(),
   ));
 
   // runApp(MyApp(),);

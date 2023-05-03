@@ -6,6 +6,7 @@ class MyColors {
   static const transparent = Colors.transparent;
   static const mainColor = Color(0xff48c0a2);
   static const myBlue = Color(0xff4c6ef6);
+  static const darkBlue =  Color(0xff000585);
   static const black = Colors.black;
   static const green = Colors.green;
   static const red = Colors.red;
@@ -16,6 +17,7 @@ class MyColors {
   static const darkGrey = Color(0xff424242);
   static const grey = Color(0xff808080);
   static const lightGrey = Colors.grey;
+  static const lightGrey2 =  Color(0xffe3e3e3);
   static const sonicSilver = Color(0xff767676);
   static const oceanGreen = Color(0xff48c0a2);
   static const brightYellow = Color(0xffffae2c);
@@ -46,6 +48,7 @@ class MyTextTheme {
   static const black25W300 = TextStyle(color: MyColors.black, fontWeight: FontWeight.w300, fontSize: 25);
   static const black17W300 = TextStyle(color: MyColors.black, fontWeight: FontWeight.w300, fontSize: 17);
   static const white25 = TextStyle(fontSize: 25, color: MyColors.white);
+  static const white22 = TextStyle(fontSize: 22, color: MyColors.white);
   static const white20 = TextStyle(fontSize: 20, color: MyColors.white);
   static const white16 = TextStyle(fontSize: 16, color: MyColors.white);
   static const white12 = TextStyle(fontSize: 12, color: MyColors.white);

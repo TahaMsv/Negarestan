@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp.router(
       // debugShowCheckedModeBanner: false,
-      title: 'Online Check-in',
+      title: 'Negarestan',
 
       supportedLocales: const [
         Locale("en", "US"),
