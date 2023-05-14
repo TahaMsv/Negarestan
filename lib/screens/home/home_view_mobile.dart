@@ -55,34 +55,48 @@ class HomeView extends StatelessWidget {
         ),
       ),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
+        width: 250,
+        backgroundColor: MyColors.white,
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: MyColors.darkBlue,
+            SizedBox(
+              height: 180,
+              child: DrawerHeader(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: CircleAvatar(
+                        radius: 40.0, // adjust the radius as needed
+                        backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    Text('Username', style: MyTextTheme.darkGreyW70020,),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: MyColors.white,
+                ),
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              minLeadingWidth: 0,
+              horizontalTitleGap: 10,
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              minLeadingWidth: 0,
+              horizontalTitleGap: 10,
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
