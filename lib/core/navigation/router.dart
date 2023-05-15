@@ -28,33 +28,11 @@ class MyRouter {
           path: RouteNames.login,
           title: 'Login',
           builder: (BuildContext context, GoRouterState state) {
-            // switch (DeviceInfo.deviceType(context)) {
-            //   case DeviceType.tablet:
-            //     return LoginViewTablet();
-            //   case DeviceType.desktop:
-            //     return LoginViewWeb();
-            //   case DeviceType.web:
-            //     return LoginViewWeb();
-            //   case DeviceType.phone:
-            //     return LoginView();
-            //   default:
-            //     return LoginView();
-            // }
             return LoginView();
           }),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (BuildContext context, GoRouterState state, Widget child) {
-          // switch (DeviceInfo.deviceType(context)) {
-          // case DeviceType.tablet:
-          //   return StepsViewTablet(childWidget: Center(child: child));
-          // case DeviceType.desktop:
-          //   return StepsViewWeb(childWidget: Center(child: child));
-          // case DeviceType.web:
-          //   return StepsViewWeb(childWidget: Center(child: child));
-          // case DeviceType.phone:
-          //   return StepsView(childWidget: Center(child: child));
-          // default:
           return HomeView(
             childWidget: child,
           );
@@ -65,16 +43,6 @@ class MyRouter {
             path: RouteNames.projects,
             name: RouteNames.projects,
             builder: (BuildContext context, GoRouterState state) {
-              // switch (DeviceInfo.deviceType(context)) {
-              //   case DeviceType.tablet:
-              //     return AddTravelerViewTablet();
-              //   case DeviceType.desktop:
-              //     return AddTravelerViewWeb();
-              //   case DeviceType.web:
-              //     return AddTravelerViewWeb();
-              //   case DeviceType.phone:
-              //     return AddTravelerView();
-              //   default:
               return ProjectsView();
               // }
             },
@@ -83,16 +51,6 @@ class MyRouter {
             path: RouteNames.people,
             name: RouteNames.people,
             builder: (BuildContext context, GoRouterState state) {
-              // switch (DeviceInfo.deviceType(context)) {
-              //   case DeviceType.tablet:
-              //     return AddTravelerViewTablet();
-              //   case DeviceType.desktop:
-              //     return AddTravelerViewWeb();
-              //   case DeviceType.web:
-              //     return AddTravelerViewWeb();
-              //   case DeviceType.phone:
-              //     return AddTravelerView();
-              //   default:
               return PeopleView();
               // }
             },
@@ -101,16 +59,6 @@ class MyRouter {
             path: RouteNames.search,
             name: RouteNames.search,
             builder: (BuildContext context, GoRouterState state) {
-              // switch (DeviceInfo.deviceType(context)) {
-              //   case DeviceType.tablet:
-              //     return AddTravelerViewTablet();
-              //   case DeviceType.desktop:
-              //     return AddTravelerViewWeb();
-              //   case DeviceType.web:
-              //     return AddTravelerViewWeb();
-              //   case DeviceType.phone:
-              //     return AddTravelerView();
-              //   default:
               return ProjectsView();
               // }
             },
@@ -119,7 +67,7 @@ class MyRouter {
       ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.people,
+      initialLocation: RouteNames.projects,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {

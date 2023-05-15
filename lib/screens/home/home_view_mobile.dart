@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:negarestan/core/constants/ui.dart';
 import '../../core/constants/assets.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
-
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'home_controller.dart';
 import 'home_state.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   HomeView({Key? key, required this.childWidget}) : super(key: key);
-  final HomeController homeController = getIt<HomeController>();
   final Widget childWidget;
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final HomeController homeController = getIt<HomeController>();
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +28,12 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: MyColors.darkBlue),
+        iconTheme: const IconThemeData(color: MyColors.darkBlue),
         backgroundColor: theme.primaryColor,
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 10),
-            child: Center(
+            margin: const EdgeInsets.only(right: 10),
+            child: const Center(
               child: CircleAvatar(
                 radius: 22.0, // adjust the radius as needed
                 backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
@@ -33,7 +41,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ],
-        title: Image(
+        title: const Image(
           height: 50,
           width: 100,
           image: AssetImage(AssetImages.app_logo),
@@ -64,29 +72,32 @@ class HomeView extends StatelessWidget {
             SizedBox(
               height: 180,
               child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: MyColors.white,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: CircleAvatar(
-                        radius: 40.0, // adjust the radius as needed
-                        backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
-                      ),
+                  children: const [
+                    CircleAvatar(
+                      radius: 40.0, // adjust the radius as needed
+                      backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
                     ),
-                    SizedBox(height: 15,),
-                    Text('Username', style: MyTextTheme.darkGreyW70020,),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Username',
+                      style: MyTextTheme.darkGreyW70020,
+                    ),
                   ],
-                ),
-                decoration: BoxDecoration(
-                  color: MyColors.white,
                 ),
               ),
             ),
             ListTile(
               minLeadingWidth: 0,
               horizontalTitleGap: 10,
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -94,8 +105,17 @@ class HomeView extends StatelessWidget {
             ListTile(
               minLeadingWidth: 0,
               horizontalTitleGap: 10,
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
+              leading: const Icon(Icons.timeline),
+              title: const Text('Time Line'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              minLeadingWidth: 0,
+              horizontalTitleGap: 10,
+              leading: const Icon(Icons.work),
+              title: const Text('Jobs'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -104,7 +124,51 @@ class HomeView extends StatelessWidget {
         ),
       ),
       body: Container(
-        child: childWidget,
+        child: widget.childWidget,
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 1.5, color: Colors.black)
+          ),
+          color: Colors.white,
+        ),
+        child: SalomonBottomBar(
+          currentIndex: _currentIndex,
+          onTap: (i) {
+            setState(() => _currentIndex = i);
+            homeController.goToPage(_currentIndex);
+          },
+          items: [
+            /// Home
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.home),
+              title: const Text("Projects"),
+              selectedColor: Colors.purple,
+            ),
+
+            /// Likes
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.people),
+              title: const Text("People"),
+              selectedColor: Colors.pink,
+            ),
+
+            /// Search
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.search),
+              title: const Text("Search"),
+              selectedColor: Colors.orange,
+            ),
+
+            /// Profile
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.person),
+              title: const Text("Profile"),
+              selectedColor: Colors.teal,
+            ),
+          ],
+        ),
       ),
     );
   }
