@@ -15,6 +15,10 @@ import '../screens/login/data_sources/login_remote_ds.dart';
 import '../screens/login/login_controller.dart';
 import '../screens/login/login_repository.dart';
 import '../screens/login/login_state.dart';
+import '../screens/profile/data_sources/profile_remote_ds.dart';
+import '../screens/profile/profile_controller.dart';
+import '../screens/profile/profile_repository.dart';
+import '../screens/profile/profile_state.dart';
 import '../screens/projects/data_sources/projects_remote_ds.dart';
 import '../screens/projects/projects_controller.dart';
 import '../screens/projects/projects_repository.dart';
@@ -148,29 +152,51 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => projectsController);
   navigationService.registerController(RouteNames.projects, projectsController);
 
+  ///People-------------------------------------------------------------------------------------------------------------------
 
-    ///People-------------------------------------------------------------------------------------------------------------------
+  ///state
+  PeopleState peopleState = PeopleState();
+  getIt.registerLazySingleton(() => peopleState);
 
-    ///state
-    PeopleState peopleState = PeopleState();
-    getIt.registerLazySingleton(() => peopleState);
+  ///data-sources
+  // PeopleLocalDataSource peopleLocalDataSource = PeopleLocalDataSource(sharedPreferences: sp, objectBox: objectBox);
+  PeopleRemoteDataSource peopleRemoteDataSource = PeopleRemoteDataSource();
 
-    ///data-sources
-    // PeopleLocalDataSource peopleLocalDataSource = PeopleLocalDataSource(sharedPreferences: sp, objectBox: objectBox);
-    PeopleRemoteDataSource peopleRemoteDataSource = PeopleRemoteDataSource();
+  ///repository
+  PeopleRepository peopleRepository = PeopleRepository(
+    peopleRemoteDataSource: peopleRemoteDataSource,
+    // peopleLocalDataSource: peopleLocalDataSource,
+    // networkInfo: networkInfo,
+  );
+  getIt.registerLazySingleton(() => peopleRepository);
 
-    ///repository
-    PeopleRepository peopleRepository = PeopleRepository(
-      peopleRemoteDataSource: peopleRemoteDataSource,
-      // peopleLocalDataSource: peopleLocalDataSource,
-      // networkInfo: networkInfo,
-    );
-    getIt.registerLazySingleton(() => peopleRepository);
+  ///controller
+  PeopleController peopleController = PeopleController();
+  getIt.registerLazySingleton(() => peopleController);
+  navigationService.registerController(RouteNames.people, peopleController);
 
-    ///controller
-    PeopleController peopleController = PeopleController();
-    getIt.registerLazySingleton(() => peopleController);
-    navigationService.registerController(RouteNames.people, peopleController);
+  ///Profile-------------------------------------------------------------------------------------------------------------------
+
+  ///state
+  ProfileState profileState = ProfileState();
+  getIt.registerLazySingleton(() => profileState);
+
+  ///data-sources
+  // ProfileLocalDataSource profileLocalDataSource = ProfileLocalDataSource(sharedPreferences: sp, objectBox: objectBox);
+  ProfileRemoteDataSource profileRemoteDataSource = ProfileRemoteDataSource();
+
+  ///repository
+  ProfileRepository profileRepository = ProfileRepository(
+    profileRemoteDataSource: profileRemoteDataSource,
+    // profileLocalDataSource: profileLocalDataSource,
+    // networkInfo: networkInfo,
+  );
+  getIt.registerLazySingleton(() => profileRepository);
+
+  ///controller
+  ProfileController profileController = ProfileController();
+  getIt.registerLazySingleton(() => profileController);
+  navigationService.registerController(RouteNames.profile, profileController);
 }
 
 initNetworkManager() {

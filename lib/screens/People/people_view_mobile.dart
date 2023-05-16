@@ -18,7 +18,7 @@ class PeopleView extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: theme.primaryColor,
+      backgroundColor: Colors.black87,
       // appBar: AppBar(
       //
       // ),
@@ -52,10 +52,10 @@ class PeopleView extends StatelessWidget {
                     // color: MyColors.blueAccent,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: MyColors.white,
+                      // color: MyColors.white,
                       boxShadow: const [
                         BoxShadow(
-                          color: MyColors.lightGrey2,
+                          color: MyColors.transparent,
                           blurRadius: 1,
                           offset: Offset(0, 4), // Shadow position
                         ),
@@ -81,7 +81,7 @@ class PeopleView extends StatelessWidget {
                             height: 150,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: MyColors.white,
+                              color: MyColors.customGrey,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,9 +98,9 @@ class PeopleView extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(horizontal: 10),
                                 ),
                                 SizedBox(height: 10),
-                                Text('Person name $index', textAlign: TextAlign.center, style: MyTextTheme.darkGreyW50022),
+                                Text('Person name $index', textAlign: TextAlign.center, style: MyTextTheme.whiteW50022),
                                 SizedBox(height: 5),
-                                Text('Graphic design', textAlign: TextAlign.center, style: MyTextTheme.darkGreyW40015),
+                                Text('Graphic design', textAlign: TextAlign.center, style: MyTextTheme.whiteW40015),
                                 SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -110,10 +110,10 @@ class PeopleView extends StatelessWidget {
                                         Text(
                                           '10 k',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: MyColors.darkGrey),
+                                          style: TextStyle(color: MyColors.white),
                                         ),
                                         SizedBox(width: 3),
-                                        Icon(Icons.person, color: MyColors.darkGrey, size: 20),
+                                        Icon(Icons.person, color: MyColors.white, size: 20),
                                       ],
                                     ),
                                     SizedBox(width: 10),
@@ -122,7 +122,7 @@ class PeopleView extends StatelessWidget {
                                         Text(
                                           '10 k',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: MyColors.darkGrey),
+                                          style: TextStyle(color: MyColors.white),
                                         ),
                                         SizedBox(width: 3),
                                         Icon(Icons.remove_red_eye, color: MyColors.blueAccent, size: 20)
@@ -134,7 +134,7 @@ class PeopleView extends StatelessWidget {
                                         Text(
                                           '10 k',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: MyColors.darkGrey),
+                                          style: TextStyle(color: MyColors.white),
                                         ),
                                         SizedBox(width: 3),
                                         Icon(Icons.favorite, color: MyColors.red, size: 20),

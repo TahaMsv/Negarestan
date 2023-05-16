@@ -104,7 +104,10 @@ class LoginForm extends StatelessWidget {
             bgColor: MyColors.myBlue,
             textColor: MyColors.white,
             fgColor: MyColors.white,
-            function: () {},
+            function: () {
+              final LoginController loginController = getIt<LoginController>();
+              loginController.goToHome();
+            },
           )
         ],
       ),
@@ -236,7 +239,10 @@ class SignUp extends StatelessWidget {
             bgColor: MyColors.myBlue,
             textColor: MyColors.white,
             fgColor: MyColors.white,
-            function: () {},
+            function: () {
+              final LoginController loginController = getIt<LoginController>();
+              loginController.goToHome();
+            },
           )
         ],
       ),

@@ -16,7 +16,7 @@ class MyElevatedButton extends StatelessWidget {
     this.textColor = MyColors.white,
     this.isDisable = false,
     this.fontSize = 15,
-    this.borderRadius,
+    this.borderRadius = 0,
     this.borderColor = Colors.transparent,
     this.child,
     this.isLoading = false,
@@ -33,18 +33,17 @@ class MyElevatedButton extends StatelessWidget {
   final bool isDisable;
   final bool isLoading;
   final double fontSize;
-  final BorderRadiusGeometry? borderRadius;
+  final double borderRadius;
   final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       height: height,
       width: width,
       decoration: BoxDecoration(
         border: Border.all(color: borderColor, width: 2),
-        borderRadius: borderRadius,
+        // borderRadius: borderRadius,
       ),
       child: ElevatedButton(
         onPressed: isLoading || isDisable ? null : function,
@@ -53,11 +52,17 @@ class MyElevatedButton extends StatelessWidget {
                 foregroundColor: fgColor.withOpacity(0.2),
                 backgroundColor: bgColor.withOpacity(0.2),
                 textStyle: TextStyle(color: textColor.withOpacity(0.2)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
               )
             : ElevatedButton.styleFrom(
                 foregroundColor: fgColor,
                 backgroundColor: bgColor,
                 textStyle: TextStyle(color: textColor),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
               ),
         child: isLoading
             ? const Center(

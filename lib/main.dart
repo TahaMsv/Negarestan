@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:negarestan/screens/People/people_state.dart';
 import 'package:negarestan/screens/home/home_state.dart';
+import 'package:negarestan/screens/profile/profile_state.dart';
 import 'package:negarestan/screens/projects/projects_state.dart';
 import 'package:negarestan/screens/search_screen/search_state.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => getIt<SearchState>()),
       ChangeNotifierProvider(create: (_) => getIt<ProjectsState>()),
       ChangeNotifierProvider(create: (_) => getIt<PeopleState>()),
+      ChangeNotifierProvider(create: (_) => getIt<ProfileState>()),
     ],
     child: MyApp(),
   ));

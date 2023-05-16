@@ -1,3 +1,5 @@
+import 'package:negarestan/core/constants/route_names.dart';
+
 import '../../core/dependency_injection.dart';
 import '../../core/interfaces/controller.dart';
 import '../../core/utils/failure_handler.dart';
@@ -34,4 +36,7 @@ class LoginController extends MainController {
     // }
   }
 
+  void goToHome() {
+    nav.goToName(RouteNames.projects);
+  }
 }

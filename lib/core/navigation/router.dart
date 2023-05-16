@@ -4,6 +4,7 @@ import 'package:negarestan/screens/People/people_view_mobile.dart';
 import '../../screens/home/home_view_mobile.dart';
 import '../../screens/login/login_state.dart';
 import '../../screens/login/login_view_mobile.dart';
+import '../../screens/profile/profile_view_mobile.dart';
 import '../../screens/projects/projects_view_mobile.dart';
 import '../../screens/search_screen/search_view_mobile.dart';
 import '../constants/route_names.dart';
@@ -63,11 +64,19 @@ class MyRouter {
               // }
             },
           ),
+          GoRoute(
+            path: RouteNames.profile,
+            name: RouteNames.profile,
+            builder: (BuildContext context, GoRouterState state) {
+              return ProfileView();
+              // }
+            },
+          ),
         ],
       ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.projects,
+      initialLocation: RouteNames.profile,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {
@@ -87,110 +96,6 @@ class MyRouter {
     );
   }
 
-  // static List<String> get currentRouteTitles {
-  //   String cp = _router.location;
-  //   List<String> split = cp.split("/").where((element) => !element.startsWith(":")).toList();
-  //   List<MyRoute> crl = [];
-  //   for (var r in _routes) {
-  //     if (split.contains(r.path.replaceFirst("/", ""))) {
-  //       crl.add(r);
-  //       for (var r2 in r.routes) {
-  //         if (split.contains(r2.path.split("/").first)) {
-  //           crl.add(r2);
-  //           for (var r3 in r2.routes) {
-  //             if (split.contains(r3.path.split("/").first)) {
-  //               crl.add(r3);
-  //               for (var r4 in r3.routes) {
-  //                 if (split.contains(r4.path.split("/").first)) {
-  //                   crl.add(r4);
-  //                   for (var r5 in r4.routes) {
-  //                     if (split.contains(r5.path.split("/").first)) {
-  //                       crl.add(r5);
-  //                       for (var r6 in r5.routes) {
-  //                         if (split.contains(r6.path.split("/").first)) {
-  //                           crl.add(r6);
-  //                         }
-  //                       }
-  //                     }
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //
-  //   return crl.map((e) => e.title).toList();
-  //   // print(crl.map((e) => e.title));
-  //
-  //   // _routes.forEach((r) {
-  //   //   print(r.path);
-  //   //   r.routes.forEach((rr) {
-  //   //     String match = (r.path + '/' + rr.path).split(":")[0];
-  //   //     print(match);
-  //   //   });
-  //   // });
-  //   // print(_router.location);
-  //   // print(routes[1].getAllSubs.keys);
-  //   if (_routes.any((r) => r.getAllSubs.keys.any((e) => _router.location.startsWith(e)))) {
-  //     MyRoute r = _routes.firstWhere((r) => r.getAllSubs.keys.any((e) => _router.location.startsWith(e)));
-  //     String m = r.getAllSubs.keys.lastWhere((e) => _router.location.startsWith(e));
-  //     MyRoute rr = r.getAllSubs[m]!;
-  //     // print(r.getAllSubs.any((e)=>_router.location.startsWith(e)))
-  //     // return m.split("/").where((element) => element.isNotEmpty).toList();
-  //     return [r.title, rr.title];
-  //   } else if (_routes.any((r) => r.path == _router.location)) {
-  //     MyRoute myRoute = _routes.firstWhere((r) => r.path == _router.location);
-  //     return [myRoute.title];
-  //   } else {
-  //     return [""];
-  //   }
-  // }
-  //
-  // static List<MyRoute> get currentRouteStack {
-  //   String cp = _router.location;
-  //   List<String> split = cp.split("/").where((element) => !element.startsWith(":")).toList();
-  //   List<MyRoute> crl = [];
-  //   for (var r in _routes) {
-  //     if (split.contains(r.path.replaceFirst("/", ""))) {
-  //       crl.add(r);
-  //       for (var r2 in r.routes) {
-  //         if (split.contains(r2.path.split("/").first)) {
-  //           crl.add(r2);
-  //           for (var r3 in r2.routes) {
-  //             if (split.contains(r3.path.split("/").first)) {
-  //               crl.add(r3);
-  //               for (var r4 in r3.routes) {
-  //                 if (split.contains(r4.path.split("/").first)) {
-  //                   crl.add(r4);
-  //                   for (var r5 in r4.routes) {
-  //                     if (split.contains(r5.path.split("/").first)) {
-  //                       crl.add(r5);
-  //                       for (var r6 in r5.routes) {
-  //                         if (split.contains(r6.path.split("/").first)) {
-  //                           crl.add(r6);
-  //                         }
-  //                       }
-  //                     }
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //
-  //   return crl;
-  // }
-  //
-  // static List<String> get getTitles {
-  //   List<String> titles = _routes.where((element) => element.showInMainRoute).map((r) => r.title).toList();
-  //   return titles;
-  // }
 
   static GoRouter get router => _router;
 

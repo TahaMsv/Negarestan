@@ -6,6 +6,7 @@ import '../../core/constants/assets.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import '../../widgets/image_circle_avatar.dart';
 import 'home_controller.dart';
 import 'home_state.dart';
 
@@ -29,23 +30,15 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: theme.primaryColor,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: MyColors.darkBlue),
-        backgroundColor: theme.primaryColor,
+        backgroundColor: Colors.black,
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            child: const Center(
-              child: CircleAvatar(
-                radius: 22.0, // adjust the radius as needed
-                backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
-              ),
-            ),
-          ),
+          ImageCircleAvatar(),
         ],
-        title: const Image(
-          height: 50,
-          width: 100,
-          image: AssetImage(AssetImages.app_logo),
-        ),
+        // title: const Image(
+        //   height: 50,
+        //   width: 100,
+        //   image: AssetImage(AssetImages.app_logo),
+        // ),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -53,6 +46,7 @@ class _HomeViewState extends State<HomeView> {
               icon: const Icon(
                 Icons.menu,
                 size: 30,
+                color: Colors.white,
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -129,11 +123,13 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(width: 1.5, color: Colors.black)
+            top: BorderSide(width: 1.5, color: Colors.white)
           ),
           color: Colors.white,
         ),
         child: SalomonBottomBar(
+          backgroundColor: Colors.black,
+          unselectedItemColor: Colors.white,
           currentIndex: _currentIndex,
           onTap: (i) {
             setState(() => _currentIndex = i);
@@ -173,3 +169,4 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+

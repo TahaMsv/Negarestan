@@ -19,6 +19,7 @@ class MyColors {
   static const lightGrey = Colors.grey;
   static const lightGrey2 =  Color(0xffe3e3e3);
   static const sonicSilver = Color(0xff767676);
+  static const customGrey =Color(0xFF3A3939);
   static const oceanGreen = Color(0xff48c0a2);
   static const brightYellow = Color(0xffffae2c);
   static const begonia = Color(0xfff86f6f);
@@ -51,6 +52,7 @@ class MyTextTheme {
   static const white22 = TextStyle(fontSize: 22, color: MyColors.white);
   static const white20 = TextStyle(fontSize: 20, color: MyColors.white);
   static const white16 = TextStyle(fontSize: 16, color: MyColors.white);
+  static const white14 = TextStyle(fontSize: 14, color: MyColors.white);
   static const white12 = TextStyle(fontSize: 12, color: MyColors.white);
   static const boldDarkGray12 = TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: MyColors.darkGrey);
   static const boldDarkGray18 = TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: MyColors.darkGrey);
@@ -75,8 +77,10 @@ class MyTextTheme {
   static const darkGrey25W300 = TextStyle(color: MyColors.darkGrey, fontWeight: FontWeight.w300, fontSize: 25);
   static const darkGreyW30012 = TextStyle(fontSize: 12, color: MyColors.darkGrey, fontWeight: FontWeight.w300);
   static const darkGreyW40015 = TextStyle(fontSize: 15, color: MyColors.darkGrey, fontWeight: FontWeight.w400);
+  static const whiteW40015 = TextStyle(fontSize: 15, color: MyColors.white, fontWeight: FontWeight.w400);
   static const darkGreyW50017 =TextStyle(color: Color(0xff424242), fontSize: 17, fontWeight: FontWeight.w500);
   static const darkGreyW50022 =TextStyle(color: Color(0xff424242), fontSize: 22, fontWeight: FontWeight.w500);
+  static const whiteW50022 =TextStyle(color: MyColors.white, fontSize: 22, fontWeight: FontWeight.w500);
   static const darkGreyW50025 =TextStyle(color: Color(0xff424242), fontSize: 25, fontWeight: FontWeight.w500);
   static const darkGreyW50030 =TextStyle(color: Color(0xff424242), fontSize: 30, fontWeight: FontWeight.w500);
   static const darkGreyW40020 = TextStyle(fontSize: 20, color: MyColors.darkGrey, fontWeight: FontWeight.w400);
