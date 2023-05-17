@@ -20,9 +20,7 @@ class ProjectsView extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black87,
-      // appBar: AppBar(
-      //
-      // ),
+
       body: SizedBox(
         height: height,
         child: ListView(
