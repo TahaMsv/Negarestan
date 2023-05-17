@@ -105,6 +105,8 @@ class SearchBar extends StatelessWidget {
           onQueryChanged: (query) {
             // Call your model, bloc, controller here.
           },
+          // Specify a custom transition to be used for
+          // animating between opened and closed stated.
           transition: CircularFloatingSearchBarTransition(),
 
           builder: (context, transition) {
