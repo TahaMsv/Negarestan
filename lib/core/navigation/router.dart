@@ -60,7 +60,7 @@ class MyRouter {
             path: RouteNames.search,
             name: RouteNames.search,
             builder: (BuildContext context, GoRouterState state) {
-              return ProjectsView();
+              return SearchView();
               // }
             },
           ),
@@ -76,7 +76,7 @@ class MyRouter {
       ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.profile,
+      initialLocation: RouteNames.search,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {

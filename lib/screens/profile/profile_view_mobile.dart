@@ -21,6 +21,7 @@ class ProfileView extends StatelessWidget {
     ProfileState profileState = context.watch<ProfileState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    double galleryWidth = width - 26;
     List posts = [
       AssetImages.loginBG1,
       AssetImages.loginBG2,
@@ -30,7 +31,6 @@ class ProfileView extends StatelessWidget {
       AssetImages.loginBG6,
       AssetImages.loginBG7,
     ];
-    double galleryWidth = width - 26;
     return Scaffold(
       backgroundColor: Colors.black87,
       body: Container(

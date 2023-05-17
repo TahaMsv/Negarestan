@@ -18,7 +18,7 @@ class HomeController extends MainController {
         nav.goToName(RouteNames.people);
         break;
       case 2:
-        nav.goToName(RouteNames.projects);
+        nav.goToName(RouteNames.search);
         break;
       case 3:
         nav.goToName(RouteNames.profile);
