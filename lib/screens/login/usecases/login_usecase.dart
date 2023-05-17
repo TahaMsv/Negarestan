@@ -28,13 +28,8 @@ class LoginRequest extends Request {
   @override
   Map<String, dynamic> toJson() => {
         "Body": {
-          "Execution": "[OnlineCheckin].[Authenticate]",
-          "Token": null,
-          "Request": {
-            "Code": password,
-            "Code2": username,
-            "UrlType": 1,
-          },
+          "username": username,
+          "password": password,
         },
       };
 }
