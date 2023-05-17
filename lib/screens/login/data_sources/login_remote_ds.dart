@@ -1,3 +1,5 @@
+
+import 'package:negarestan/screens/login/usecases/logout_usecase.dart';
 import '../../../core/constants/apis.dart';
 import '../../../core/error/exception.dart';
 import '../../../screens/login/interfaces/login_data_source_interface.dart';
@@ -44,6 +46,24 @@ class LoginRemoteDataSource implements LoginDataSourceInterface {
       throw ServerException(
         code: signUpResponse.responseCode,
         message: signUpResponse.extractedMessage!,
+        trace: StackTrace.fromString("LoginRemoteDataSource.login"),
+      );
+    }
+  }
+  @override
+  Future<String> logOut(LogOutRequest request) async {
+    NetworkRequest logOutNR = NetworkRequest(api: Apis.baseUrl + Apis.logout, data: request.toJson(), timeOut: const Duration(seconds: 15));
+    NetworkResponse logOutResponse = await logOutNR.post();
+    if (logOutResponse.responseStatus) {
+      try {
+        return logOutResponse.responseBody["Body"]["Token"];
+      } catch (e, trace) {
+        throw ParseException(message: e.toString(), trace: trace);
+      }
+    } else {
+      throw ServerException(
+        code: logOutResponse.responseCode,
+        message: logOutResponse.extractedMessage!,
         trace: StackTrace.fromString("LoginRemoteDataSource.login"),
       );
     }
