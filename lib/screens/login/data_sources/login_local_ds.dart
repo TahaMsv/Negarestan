@@ -1,8 +1,9 @@
 
+import 'package:negarestan/screens/login/usecases/sign_up_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../interfaces/login_data_source_interface.dart';
 import '../usecases/login_usecase.dart';
+import '../usecases/logout_usecase.dart';
 
 class LoginLocalDataSource implements LoginDataSourceInterface {
   final SharedPreferences? sharedPreferences;
@@ -13,6 +14,17 @@ class LoginLocalDataSource implements LoginDataSourceInterface {
 
   @override
   Future<String> login(LoginRequest request) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> signUp(SignUpRequest request) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> logOut(LogOutRequest request) {
+    // TODO: implement logOut
     throw UnimplementedError();
   }
 }
