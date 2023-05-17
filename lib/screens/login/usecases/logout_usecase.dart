@@ -5,19 +5,19 @@ import '../../../core/interfaces/request.dart';
 import '../../../core/interfaces/usecase.dart';
 import '../login_repository.dart';
 
-class LoginUseCase extends UseCase<String, LoginRequest> {
+class LogOutUseCase extends UseCase<String, LogOutRequest> {
   final LoginRepository repository;
 
-  LoginUseCase({required this.repository});
+  LogOutUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call({required LoginRequest request}) {
-    return repository.login(request);
+  Future<Either<Failure, String>> call({required LogOutRequest request}) {
+    return repository.logOut(request);
   }
 }
 
-class LoginRequest extends Request {
-  LoginRequest({
+class LogOutRequest extends Request {
+  LogOutRequest({
     required this.username,
     required this.password,
   });
@@ -27,9 +27,9 @@ class LoginRequest extends Request {
 
   @override
   Map<String, dynamic> toJson() => {
-        "Body": {
-          "username": username,
-          "password": password,
-        },
-      };
+    "Body": {
+      "username": username,
+      "password": password,
+    },
+  };
 }

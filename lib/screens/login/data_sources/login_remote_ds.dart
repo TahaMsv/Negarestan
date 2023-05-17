@@ -1,5 +1,5 @@
-import 'package:negarestan/screens/login/usecases/logout_usecase.dart';
 
+import 'package:negarestan/screens/login/usecases/logout_usecase.dart';
 import '../../../core/constants/apis.dart';
 import '../../../core/error/exception.dart';
 import '../../../screens/login/interfaces/login_data_source_interface.dart';
@@ -50,7 +50,6 @@ class LoginRemoteDataSource implements LoginDataSourceInterface {
       );
     }
   }
-
   @override
   Future<String> logOut(LogOutRequest request) async {
     NetworkRequest logOutNR = NetworkRequest(api: Apis.baseUrl + Apis.logout, data: request.toJson(), timeOut: const Duration(seconds: 15));

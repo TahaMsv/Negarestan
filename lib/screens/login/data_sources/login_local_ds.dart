@@ -21,7 +21,6 @@ class LoginLocalDataSource implements LoginDataSourceInterface {
   Future<String> signUp(SignUpRequest request) {
     throw UnimplementedError();
   }
-
   @override
   Future<String> logOut(LogOutRequest request) {
     // TODO: implement logOut
