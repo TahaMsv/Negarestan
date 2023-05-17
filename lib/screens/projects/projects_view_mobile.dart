@@ -19,7 +19,7 @@ class ProjectsView extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: theme.primaryColor,
+      backgroundColor: Colors.black87,
       // appBar: AppBar(
       //
       // ),
@@ -27,18 +27,6 @@ class ProjectsView extends StatelessWidget {
         height: height,
         child: ListView(
           children: [
-            // SizedBox(height: 10,),
-            // Center(
-            //   child: Container(
-            //     height: 40,
-            //     width: 150,
-            //     decoration: const BoxDecoration(
-            //       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
-            //       color: MyColors.darkBlue,
-            //     ),
-            //     child: const Center(child: Text("Projects", style: MyTextTheme.white22)),
-            //   ),
-            // ),
             const SizedBox(
               height: 30,
             ),
