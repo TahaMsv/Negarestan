@@ -7,5 +7,5 @@ import '../usecases/sign_up_usecase.dart';
 abstract class LoginRepositoryInterface {
   Future<Either<Failure, String>> login(LoginRequest request);
   Future<Either<Failure, String>> signUp(SignUpRequest request);
-  Future<Either<Failure, String>> logOut(LogOutRequest request);
+  Future<Either<Failure, bool>> logOut(LogOutRequest request);
 }

@@ -22,7 +22,7 @@ class LoginLocalDataSource implements LoginDataSourceInterface {
     throw UnimplementedError();
   }
   @override
-  Future<String> logOut(LogOutRequest request) {
+  Future<bool> logOut(LogOutRequest request) {
     throw UnimplementedError();
   }
 

@@ -62,11 +62,11 @@ class LoginRepository implements LoginRepositoryInterface {
 
 
   @override
-  Future<Either<Failure, String>> logOut(LogOutRequest loginRequest) async {
+  Future<Either<Failure, bool>> logOut(LogOutRequest loginRequest) async {
     if (await networkInfo!.isConnected) {
       try {
-        String token = await loginRemoteDataSource.logOut(loginRequest);
-        return Right(token);
+        bool success = await loginRemoteDataSource.logOut(loginRequest);
+        return Right(success);
       } on AppException catch (e) {
         return Left(ServerFailure.fromAppException(e));
       }

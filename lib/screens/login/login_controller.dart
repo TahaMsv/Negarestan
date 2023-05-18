@@ -1,4 +1,5 @@
 import 'package:negarestan/core/constants/route_names.dart';
+import 'package:negarestan/screens/login/usecases/logout_usecase.dart';
 import 'package:negarestan/screens/login/usecases/sign_up_usecase.dart';
 
 import '../../core/dependency_injection.dart';
@@ -14,6 +15,19 @@ class LoginController extends MainController {
 
   late LoginUseCase loginUseCase = LoginUseCase(repository: loginRepository);
   late SignUpUseCase signUpUseCase = SignUpUseCase(repository: loginRepository);
+  late LogOutUseCase logOutUseCase = LogOutUseCase(repository: loginRepository);
+
+  void logout() async {
+    if (!loginState.loginLoading) {
+      loginState.setLoginLoading(true);
+      LogOutRequest logOutRequest = LogOutRequest();
+      final fOrToken = await logOutUseCase(request: logOutRequest);
+      fOrToken.fold((f) => FailureHandler.handle(f, retry: () => logout()), (success) async {
+        if (success) {}
+      });
+      loginState.setLoginLoading(false);
+    }
+  }
 
   void login({required String username, required String password}) async {
     if (!loginState.loginLoading) {

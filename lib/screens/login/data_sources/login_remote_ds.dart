@@ -52,7 +52,7 @@ class LoginRemoteDataSource implements LoginDataSourceInterface {
   }
 
   @override
-  Future<String> logOut(LogOutRequest request) async {
+  Future<bool> logOut(LogOutRequest request) async {
     NetworkRequest logOutNR = NetworkRequest(api: Apis.baseUrl + Apis.logout, data: request.toJson(), timeOut: const Duration(seconds: 15));
     NetworkResponse logOutResponse = await logOutNR.post();
     if (logOutResponse.responseStatus) {

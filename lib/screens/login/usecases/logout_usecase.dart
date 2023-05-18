@@ -5,31 +5,20 @@ import '../../../core/interfaces/request.dart';
 import '../../../core/interfaces/usecase.dart';
 import '../login_repository.dart';
 
-class LogOutUseCase extends UseCase<String, LogOutRequest> {
+class LogOutUseCase extends UseCase<bool, LogOutRequest> {
   final LoginRepository repository;
 
   LogOutUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call({required LogOutRequest request}) {
+  Future<Either<Failure, bool>> call({required LogOutRequest request}) {
     return repository.logOut(request);
   }
 }
 
 class LogOutRequest extends Request {
-  LogOutRequest({
-    required this.username,
-    required this.password,
-  });
-
-  final String username;
-  final String password;
+  LogOutRequest();
 
   @override
-  Map<String, dynamic> toJson() => {
-    "Body": {
-      "username": username,
-      "password": password,
-    },
-  };
+  Map<String, dynamic> toJson() => {};
 }

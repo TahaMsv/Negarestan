@@ -20,6 +20,7 @@ class FollowRequest extends Request {
   FollowRequest({
     required this.userId,
   });
+
   final String userId;
 
   @override
