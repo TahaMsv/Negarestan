@@ -11,7 +11,7 @@ class PeopleLocalDataSource implements PeopleDataSourceInterface {
   });
 
   @override
-  Future<String> follow(FollowRequest request) {
+  Future<bool> follow(FollowRequest request) {
     throw UnimplementedError();
   }
 

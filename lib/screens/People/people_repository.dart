@@ -13,11 +13,11 @@ class PeopleRepository implements PeopleRepositoryInterface {
   PeopleRepository({required this.peopleRemoteDataSource, required this.networkInfo, });
 
   @override
-  Future<Either<Failure, String>> follow(FollowRequest followRequest) async {
+  Future<Either<Failure, bool>> follow(FollowRequest followRequest) async {
     if (await networkInfo!.isConnected) {
       try {
-        String token = await peopleRemoteDataSource.follow(followRequest);
-        return Right(token);
+        bool success = await peopleRemoteDataSource.follow(followRequest);
+        return Right(success);
       } on AppException catch (e) {
         return Left(ServerFailure.fromAppException(e));
       }

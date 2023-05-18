@@ -6,14 +6,14 @@ import '../../../core/error/exception.dart';
 import '../interfaces/people_data_source_interface.dart';
 
 class PeopleRemoteDataSource implements PeopleDataSourceInterface {
-
   @override
-  Future<String> follow(FollowRequest request) async {
+  Future<bool> follow(FollowRequest request) async {
     NetworkRequest followNR = NetworkRequest(api: Apis.baseUrl + Apis.follow, data: request.toJson(), timeOut: const Duration(seconds: 15));
     NetworkResponse followResponse = await followNR.post();
     if (followResponse.responseStatus) {
       try {
-        return followResponse.responseBody["Body"]["Token"];
+        bool success = followResponse.responseBody["success"];
+        return success;
       } catch (e, trace) {
         throw ParseException(message: e.toString(), trace: trace);
       }
@@ -25,5 +25,4 @@ class PeopleRemoteDataSource implements PeopleDataSourceInterface {
       );
     }
   }
-
 }

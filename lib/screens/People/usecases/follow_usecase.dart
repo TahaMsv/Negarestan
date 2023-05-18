@@ -5,13 +5,13 @@ import '../../../core/interfaces/request.dart';
 import '../../../core/interfaces/usecase.dart';
 import '../people_repository.dart';
 
-class FollowUseCase extends UseCase<String, FollowRequest> {
+class FollowUseCase extends UseCase<bool, FollowRequest> {
   final PeopleRepository repository;
 
   FollowUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call({required FollowRequest request}) {
+  Future<Either<Failure, bool>> call({required FollowRequest request}) {
     return repository.follow(request);
   }
 }
