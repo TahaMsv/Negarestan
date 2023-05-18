@@ -1,4 +1,5 @@
 import 'package:negarestan/core/constants/route_names.dart';
+import 'package:negarestan/screens/login/usecases/sign_up_usecase.dart';
 
 import '../../core/dependency_injection.dart';
 import '../../core/interfaces/controller.dart';
@@ -12,6 +13,7 @@ class LoginController extends MainController {
   final LoginRepository loginRepository = getIt<LoginRepository>();
 
   late LoginUseCase loginUseCase = LoginUseCase(repository: loginRepository);
+  late SignUpUseCase signUpUseCase = SignUpUseCase(repository: loginRepository);
 
   void login({required String username, required String password}) async {
     if (!loginState.loginLoading) {
@@ -24,6 +26,66 @@ class LoginController extends MainController {
       final fOrToken = await loginUseCase(request: loginRequest);
       print("here25");
       fOrToken.fold((f) => FailureHandler.handle(f, retry: () => login(username: username, password: password)), (token) async {
+        loginState.setToken(token);
+        print("Token: $token");
+        nav.goToName(RouteNames.projects);
+      });
+      loginState.setLoginLoading(false);
+    }
+  }
+
+  void signUp({
+    required String username,
+    required String password,
+    required String gender,
+    required String firstname,
+    required String lastname,
+    required String email,
+    required String phoneNumber,
+    required String country,
+    required String city,
+    required String bio,
+    required List<String> skills,
+    required List<String> institutions,
+    required String birthDay,
+  }) async {
+    if (!loginState.loginLoading) {
+      loginState.setLoginLoading(true);
+      SignUpRequest signUpRequest = SignUpRequest(
+        password: password,
+        username: username,
+        gender: gender,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        phoneNumber: phoneNumber,
+        country: country,
+        city: city,
+        bio: bio,
+        skills: skills,
+        institutions: institutions,
+        birthDay: DateTime.parse(birthDay),
+      );
+      final fOrToken = await signUpUseCase(request: signUpRequest);
+      fOrToken.fold(
+          (f) => FailureHandler.handle(
+                f,
+                retry: () => signUp(
+                  password: password,
+                  username: username,
+                  gender: gender,
+                  firstname: firstname,
+                  lastname: lastname,
+                  email: email,
+                  phoneNumber: phoneNumber,
+                  country: country,
+                  city: city,
+                  bio: bio,
+                  skills: skills,
+                  institutions: institutions,
+                  birthDay: birthDay,
+                ),
+              ), (token) async {
         loginState.setToken(token);
         print("Token: $token");
         nav.goToName(RouteNames.projects);

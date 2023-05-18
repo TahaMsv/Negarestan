@@ -241,7 +241,7 @@ class SignUp extends StatelessWidget {
             fgColor: MyColors.white,
             function: () async {
               final LoginController loginController = getIt<LoginController>();
-              loginController.login(username: "ali", password: "Mamad123");
+              // loginController.signUp(username: "ali", password: "Mamad123");
             },
           )
         ],
