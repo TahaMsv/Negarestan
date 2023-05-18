@@ -27,9 +27,7 @@ class LoginRequest extends Request {
 
   @override
   Map<String, dynamic> toJson() => {
-        "Body": {
-          "username": username,
-          "password": password,
-        },
+        "username": username,
+        "password": password,
       };
 }

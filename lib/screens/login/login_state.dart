@@ -25,5 +25,12 @@ class LoginState with ChangeNotifier {
     notifyListeners();
   }
 
-  String? token;
+  String? _token;
+
+  String get token => _token!;
+
+  void setToken(String val) {
+    _token = val;
+    notifyListeners();
+  }
 }

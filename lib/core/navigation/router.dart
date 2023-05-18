@@ -76,7 +76,7 @@ class MyRouter {
       ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.search,
+      initialLocation: RouteNames.login,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {

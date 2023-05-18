@@ -166,7 +166,7 @@ Future<void> init() async {
   PeopleRepository peopleRepository = PeopleRepository(
     peopleRemoteDataSource: peopleRemoteDataSource,
     // peopleLocalDataSource: peopleLocalDataSource,
-    // networkInfo: networkInfo,
+    networkInfo: networkInfo,
   );
   getIt.registerLazySingleton(() => peopleRepository);
 

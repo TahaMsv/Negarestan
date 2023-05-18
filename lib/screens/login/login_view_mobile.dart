@@ -37,8 +37,7 @@ class LoginView extends StatelessWidget {
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 1000),
               transitionBuilder: (Widget child, Animation<double> animation) {
-                return
-                  FadeTransition(
+                return FadeTransition(
                   opacity: animation,
                   child: child,
                 );
@@ -106,7 +105,9 @@ class LoginForm extends StatelessWidget {
             fgColor: MyColors.white,
             function: () {
               final LoginController loginController = getIt<LoginController>();
-              loginController.goToHome();
+              loginController.login(username: "ali", password: "Mamad123");
+              // final LoginController loginController = getIt<LoginController>();
+              // loginController.goToHome();
             },
           )
         ],
@@ -228,7 +229,6 @@ class SignUp extends StatelessWidget {
               ),
               // SizedBox(width: 5,),
               Text("I accept the Terms of Use and Privacy Policy", style: MyTextTheme.darkGrey12w500, textAlign: TextAlign.center),
-
             ],
           ),
           MyElevatedButton(
@@ -239,9 +239,9 @@ class SignUp extends StatelessWidget {
             bgColor: MyColors.myBlue,
             textColor: MyColors.white,
             fgColor: MyColors.white,
-            function: () {
+            function: () async {
               final LoginController loginController = getIt<LoginController>();
-              loginController.goToHome();
+              loginController.login(username: "ali", password: "Mamad123");
             },
           )
         ],
