@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:negarestan/core/constants/ui.dart';
+import 'package:negarestan/screens/home/home_state.dart';
 import 'package:negarestan/screens/profile/profile_controller.dart';
 import 'package:negarestan/screens/profile/profile_state.dart';
 import 'package:negarestan/widgets/MyElevatedButton.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../../core/classes/user.dart';
 import '../../core/constants/assets.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +21,8 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     ProfileState profileState = context.watch<ProfileState>();
+    HomeState homeState = context.watch<HomeState>();
+    User user = homeState.user;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     double galleryWidth = width - 26;
@@ -43,15 +47,15 @@ class ProfileView extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  const Text(
-                    "Taha Mousavi",
+                  Text(
+                    user.username ?? "",
                     style: MyTextTheme.whiteW50022,
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
-                    "This is my bio!!!!!!!!!!!!",
+                   Text(
+                    user.bio ?? "",
                     style: MyTextTheme.whiteW40015,
                   ),
                   const SizedBox(
@@ -76,16 +80,16 @@ class ProfileView extends StatelessWidget {
             const SizedBox(height: 10),
             Center(
               child: ToggleSwitch(
-                initialLabelIndex:0,
+                initialLabelIndex: 0,
                 totalSwitches: 2,
                 fontSize: 17,
                 minWidth: 90,
                 activeBgColor: [Colors.blueAccent],
                 activeFgColor: Colors.white,
-                inactiveBgColor:MyColors.customGrey,
+                inactiveBgColor: MyColors.customGrey,
                 inactiveFgColor: MyColors.white,
                 icons: [Icons.photo_library_outlined, Icons.favorite],
-                customWidths: [  width/2.1, width/2.1],
+                customWidths: [width / 2.1, width / 2.1],
                 cornerRadius: 5.0,
                 // labels: const ['All Posts', 'Saved'],
                 // borderColor: [Colors.black12],

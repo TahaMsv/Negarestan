@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:negarestan/screens/login/usecases/logout_usecase.dart';
 import 'package:negarestan/screens/login/usecases/sign_up_usecase.dart';
+import '../../core/classes/user.dart';
 import '../../core/error/exception.dart';
 import '../../core/error/failures.dart';
 import '../../core/platform/network_info.dart';
@@ -39,11 +40,11 @@ class LoginRepository implements LoginRepositoryInterface {
     }
   }
   @override
-  Future<Either<Failure, String>> signUp(SignUpRequest loginRequest) async {
+  Future<Either<Failure, User>> signUp(SignUpRequest signUpRequest) async {
     if (await networkInfo!.isConnected) {
       try {
-        String token = await loginRemoteDataSource.signUp(loginRequest);
-        return Right(token);
+        User user = await loginRemoteDataSource.signUp(signUpRequest);
+        return Right(user);
       } on AppException catch (e) {
         return Left(ServerFailure.fromAppException(e));
       }

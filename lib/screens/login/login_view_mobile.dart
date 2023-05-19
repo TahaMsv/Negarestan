@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:negarestan/core/constants/assets.dart';
 import 'package:negarestan/core/constants/ui.dart';
 import 'package:negarestan/widgets/MyElevatedButton.dart';
+import 'package:negarestan/widgets/UserTextInput.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -70,7 +71,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double loginBoxWidth = (width * 0.9 > 300) ? width * 0.9 : 300;
-
+    LoginState loginState = context.watch<LoginState>();
     return Container(
       margin: const EdgeInsets.only(top: 80),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -80,12 +81,14 @@ class LoginForm extends StatelessWidget {
       child: ListView(
         children: [
           const CommonSections(),
-          const MyTextField(
-            hintText: 'Email Address',
+          MyTextField(
+            hintText: 'Username',
+            controller: loginState.usernameC,
           ),
           const SizedBox(height: 10),
-          const MyTextField(
+          MyTextField(
             hintText: "Password",
+            controller: loginState.passwordC,
           ),
           const SizedBox(height: 3),
           TextButton(
@@ -105,7 +108,7 @@ class LoginForm extends StatelessWidget {
             fgColor: MyColors.white,
             function: () {
               final LoginController loginController = getIt<LoginController>();
-              loginController.login(username: "ali", password: "Mamad123");
+              loginController.login();
               // final LoginController loginController = getIt<LoginController>();
               // loginController.goToHome();
             },
@@ -186,21 +189,28 @@ class SignUp extends StatelessWidget {
       margin: const EdgeInsets.only(top: 80),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       width: loginBoxWidth,
-      height: 570,
+      height: 610,
       decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
       child: ListView(
         children: [
           const CommonSections(),
-          const MyTextField(
+          MyTextField(
             hintText: 'Email Address',
+            controller: loginState.emailC,
+          ),
+          const SizedBox(height: 10),
+          MyTextField(
+            hintText: 'Username',
+            controller: loginState.usernameC,
           ),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Expanded(
                 child: MyTextField(
                   hintText: "First name",
+                  controller: loginState.firstnameC,
                 ),
               ),
               SizedBox(
@@ -209,13 +219,15 @@ class SignUp extends StatelessWidget {
               Expanded(
                 child: MyTextField(
                   hintText: "Last name",
+                  controller: loginState.lastnameC,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 10),
-          const MyTextField(
+          MyTextField(
             hintText: 'Password',
+            controller: loginState.passwordC,
           ),
           const SizedBox(height: 10),
           BirthdayInput(),
@@ -224,8 +236,10 @@ class SignUp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Checkbox(
-                value: false,
-                onChanged: (value) {},
+                value: loginState.checkBoxValue,
+                onChanged: (value) {
+                  loginState.toggleCheckBoxValue();
+                },
               ),
               // SizedBox(width: 5,),
               Text("I accept the Terms of Use and Privacy Policy", style: MyTextTheme.darkGrey12w500, textAlign: TextAlign.center),
@@ -241,7 +255,7 @@ class SignUp extends StatelessWidget {
             fgColor: MyColors.white,
             function: () async {
               final LoginController loginController = getIt<LoginController>();
-              // loginController.signUp(username: "ali", password: "Mamad123");
+              loginController.signUp();
             },
           )
         ],
@@ -255,16 +269,19 @@ class MyTextField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.height = 35,
+    this.controller,
   });
 
   final String hintText;
   final double height;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
       child: TextField(
+        controller: controller,
         style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
         decoration: InputDecoration(contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10), border: const OutlineInputBorder(), hintText: hintText),
@@ -321,6 +338,8 @@ class _BirthdayInputState extends State<BirthdayInput> {
 
   @override
   Widget build(BuildContext context) {
+    LoginState loginState = context.watch<LoginState>();
+
     return Form(
       key: _formKey,
       child: Row(
@@ -331,6 +350,7 @@ class _BirthdayInputState extends State<BirthdayInput> {
             width: 70,
             height: 40,
             child: TextFormField(
+              controller: loginState.yearC,
               keyboardType: TextInputType.number,
               maxLength: 4,
               textAlign: TextAlign.center,
@@ -359,6 +379,7 @@ class _BirthdayInputState extends State<BirthdayInput> {
             width: 70,
             height: 40,
             child: TextFormField(
+              controller: loginState.monthC,
               keyboardType: TextInputType.number,
               maxLength: 2,
               textAlign: TextAlign.center,
@@ -387,6 +408,7 @@ class _BirthdayInputState extends State<BirthdayInput> {
             width: 70,
             height: 40,
             child: TextFormField(
+              controller: loginState.dayC,
               keyboardType: TextInputType.number,
               maxLength: 2,
               textAlign: TextAlign.center,

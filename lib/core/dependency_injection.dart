@@ -189,7 +189,7 @@ Future<void> init() async {
   ProfileRepository profileRepository = ProfileRepository(
     profileRemoteDataSource: profileRemoteDataSource,
     // profileLocalDataSource: profileLocalDataSource,
-    // networkInfo: networkInfo,
+    networkInfo: networkInfo,
   );
   getIt.registerLazySingleton(() => profileRepository);
 
@@ -206,9 +206,9 @@ initNetworkManager() {
       'Content-Type': 'application/json',
     },
     extraSuccessRule: (NetworkResponse nr) {
-      if (nr.responseCode != 200) return false;
-      int statusCode = int.tryParse((nr.responseBody["Status"]?.toString() ?? nr.responseBody["ResultCode"]?.toString() ?? "0")) ?? 0;
-      return statusCode > 0;
+      // if (nr.responseCode == 200 || nr.responseCode == 201) return true;
+      // int statusCode = int.tryParse((nr.responseBody["Status"]?.toString() ?? nr.responseBody["ResultCode"]?.toString() ?? "0")) ?? 0;
+      return nr.responseStatus;
     },
     successMsgExtractor: (data) {
       return (data["Message"] ?? data["ResultText"] ?? "Done").toString();

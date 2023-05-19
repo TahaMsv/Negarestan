@@ -5,7 +5,7 @@ class User {
     required this.username,
     required this.firstname,
     required this.lastname,
-    required this.password,
+    this.password,
     required this.email,
     required this.phoneNumber,
     required this.country,
@@ -13,39 +13,48 @@ class User {
     required this.bio,
     required this.skills,
     required this.institutions,
+    required this.followers,
     required this.birthDay,
+    required this.createdAt,
+    this.token,
   });
 
   int id;
+  String? token;
   String username;
   String firstname;
   String lastname;
-  String password;
+  String? password;
   String email;
   String phoneNumber;
   String country;
   String city;
   String bio;
+  DateTime birthDay;
+  String createdAt;
+  String gender;
   List<String> skills;
   List<String> institutions;
-  DateTime birthDay;
-  String gender;
+  List<int> followers;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
+        token: json["token"],
         username: json["username"],
         firstname: json["first_name"],
         lastname: json["last_name"],
-        password: json["password"],
+        // password: json["password"],
         email: json["email"],
         phoneNumber: json["phone_number"],
         country: json["country"],
         city: json["city"],
         bio: json["bio"],
-        skills: json["skills"],
-        institutions: json["institutions"],
+        skills: json["skills"].cast<String>(),
+        institutions: json["institutions"].cast<String>(),
         birthDay: DateTime.parse(json["birthday"]),
         gender: json["gender"],
+        followers: [].cast<int>(),
+        createdAt: json["created_at"],
       );
 
   Map<String, dynamic> toJson() => {

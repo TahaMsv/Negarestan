@@ -20,5 +20,8 @@ class LogOutRequest extends Request {
   LogOutRequest();
 
   @override
-  Map<String, dynamic> toJson() => {};
+  Map<String, dynamic> toJson() => {
+        "username": "",
+        "password": "",
+      };
 }

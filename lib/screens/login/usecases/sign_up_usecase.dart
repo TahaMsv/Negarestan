@@ -1,17 +1,18 @@
 import 'package:dartz/dartz.dart';
+import '../../../core/classes/user.dart';
 import '../../../core/error/failures.dart';
-
+import 'package:intl/intl.dart';
 import '../../../core/interfaces/request.dart';
 import '../../../core/interfaces/usecase.dart';
 import '../login_repository.dart';
 
-class SignUpUseCase extends UseCase<String, SignUpRequest> {
+class SignUpUseCase extends UseCase<User, SignUpRequest> {
   final LoginRepository repository;
 
   SignUpUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call({required SignUpRequest request}) {
+  Future<Either<Failure, User>> call({required SignUpRequest request}) {
     return repository.signUp(request);
   }
 }
@@ -49,20 +50,18 @@ class SignUpRequest extends Request {
 
   @override
   Map<String, dynamic> toJson() => {
-        "Body": {
-          "username": username,
-          "first_name": firstname,
-          "last_name": lastname,
-          "password": password,
-          "email": email,
-          "phone_number": phoneNumber,
-          "country": country,
-          "city": city,
-          "bio": bio,
-          "skills": skills,
-          "institutions": institutions,
-          "birthday": birthDay,
-          "gender": gender,
-        },
+        "username": username,
+        "first_name": firstname,
+        "last_name": lastname,
+        "password": password,
+        "email": email,
+        "phone_number": phoneNumber,
+        "country": country,
+        "city": city,
+        "bio": bio,
+        "skills": skills,
+        "institutions": institutions,
+        "birthday": DateFormat('yyyy-MM-dd').format(birthDay),
+        "gender": gender,
       };
 }

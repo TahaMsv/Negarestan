@@ -1,6 +1,7 @@
 import 'package:negarestan/screens/profile/usecases/me_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/classes/user.dart';
 import '../interfaces/profile_data_source_interface.dart';
 
 class ProfileLocalDataSource implements ProfileDataSourceInterface {
@@ -11,7 +12,7 @@ class ProfileLocalDataSource implements ProfileDataSourceInterface {
   });
 
   @override
-  Future me(MeRequest request) {
+  Future<User> me(MeRequest request) {
     throw UnimplementedError();
   }
 

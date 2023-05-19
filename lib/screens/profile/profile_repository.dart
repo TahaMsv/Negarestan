@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:negarestan/screens/profile/usecases/me_usecase.dart';
+import '../../core/classes/user.dart';
 import '../../core/error/exception.dart';
 import '../../core/error/failures.dart';
 import '../../core/platform/network_info.dart';
@@ -14,11 +15,11 @@ class ProfileRepository implements ProfileRepositoryInterface {
   ProfileRepository({required this.profileRemoteDataSource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, dynamic>> me(MeRequest request) async {
+  Future<Either<Failure,  User>> me(MeRequest request) async {
     if (await networkInfo!.isConnected) {
       try {
-        dynamic body = await profileRemoteDataSource.me(request);
-        return Right(body);
+        User user = await profileRemoteDataSource.me(request);
+        return Right(user);
       } on AppException catch (e) {
         return Left(ServerFailure.fromAppException(e));
       }

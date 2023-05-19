@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:negarestan/core/constants/ui.dart';
+import 'package:negarestan/screens/login/login_controller.dart';
 import '../../core/constants/assets.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
@@ -114,6 +115,17 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              minLeadingWidth: 0,
+              horizontalTitleGap: 10,
+              leading: const Icon(Icons.logout),
+              title: const Text('Log Out'),
+              onTap: () {
+                final LoginController loginController = getIt<LoginController>();
+                loginController.logout();
+                // Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
@@ -122,9 +134,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 1.5, color: Colors.white)
-          ),
+          border: Border(top: BorderSide(width: 1.5, color: Colors.white)),
           color: Colors.white,
         ),
         child: SalomonBottomBar(
@@ -169,4 +179,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-

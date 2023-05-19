@@ -33,4 +33,22 @@ class LoginState with ChangeNotifier {
     _token = val;
     notifyListeners();
   }
+
+  bool _checkBoxValue = false;
+
+  bool get checkBoxValue => _checkBoxValue;
+
+  void toggleCheckBoxValue() {
+    _checkBoxValue = !_checkBoxValue;
+    notifyListeners();
+  }
+
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController usernameC = TextEditingController();
+  final TextEditingController firstnameC = TextEditingController();
+  final TextEditingController lastnameC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
+  final TextEditingController yearC = TextEditingController();
+  final TextEditingController monthC = TextEditingController();
+  final TextEditingController dayC = TextEditingController();
 }
