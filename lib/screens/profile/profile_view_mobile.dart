@@ -54,7 +54,7 @@ class ProfileView extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                   Text(
+                  Text(
                     user.bio ?? "",
                     style: MyTextTheme.whiteW40015,
                   ),
@@ -139,6 +139,8 @@ class UserStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeState homeState = context.watch<HomeState>();
+    User user = homeState.user;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Container(
@@ -155,9 +157,27 @@ class UserStats extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const StatDetail(number: "10", text: "Following"),
-              Container(margin: const EdgeInsets.only(left: 10), child: const StatDetail(number: "1K", text: "Follower")),
-              const StatDetail(number: "60", text: "Post"),
+              StatDetail(users: user.followings!, text: "Following"),
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: StatDetail(users: user.followers!, text: "Followers"),
+              ),
+              SizedBox(
+                width: 100,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      "60",
+                      style: MyTextTheme.boldWhite24,
+                    ),
+                    Text(
+                      "Post",
+                      style: MyTextTheme.white14,
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -169,11 +189,11 @@ class UserStats extends StatelessWidget {
 class StatDetail extends StatelessWidget {
   const StatDetail({
     super.key,
-    required this.number,
+    required this.users,
     required this.text,
   });
 
-  final String number;
+  final List<User> users;
   final String text;
 
   @override
@@ -184,7 +204,7 @@ class StatDetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            number,
+            users.length.toString(),
             style: MyTextTheme.boldWhite24,
           ),
           Text(

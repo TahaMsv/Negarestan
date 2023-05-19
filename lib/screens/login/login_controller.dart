@@ -65,8 +65,7 @@ class LoginController extends MainController {
     if (!loginState.loginLoading) {
       String username = loginState.usernameC.text;
       String password = loginState.passwordC.text;
-      loginState.usernameC.clear();
-      loginState.passwordC.clear();
+
       loginState.setLoginLoading(true);
       LoginRequest loginRequest = LoginRequest(
         password: password,
@@ -87,6 +86,22 @@ class LoginController extends MainController {
     }
   }
 
+  void clearLoginForm() {
+    loginState.usernameC.clear();
+    loginState.passwordC.clear();
+  }
+
+  void clearSignUpForm() {
+    loginState.emailC.clear();
+    loginState.usernameC.clear();
+    loginState.firstnameC.clear();
+    loginState.lastnameC.clear();
+    loginState.passwordC.clear();
+    loginState.yearC.clear();
+    loginState.monthC.clear();
+    loginState.dayC.clear();
+  }
+
   void signUp() async {
     if (!loginState.loginLoading) {
       loginState.setLoginLoading(true);
@@ -99,14 +114,7 @@ class LoginController extends MainController {
       String month = loginState.monthC.text;
       String day = loginState.dayC.text;
       String date = "$year-$month-$day";
-      loginState.emailC.clear();
-      loginState.usernameC.clear();
-      loginState.firstnameC.clear();
-      loginState.lastnameC.clear();
-      loginState.passwordC.clear();
-      loginState.yearC.clear();
-      loginState.monthC.clear();
-      loginState.dayC.clear();
+
       SignUpRequest signUpRequest = SignUpRequest(
         password: password,
         username: username,
@@ -133,6 +141,7 @@ class LoginController extends MainController {
         NetworkOption.setAccessToken(user.token!);
         final HomeState homeState = getIt<HomeState>();
         homeState.setUser(user);
+        clearSignUpForm();
         nav.goToName(RouteNames.projects);
       });
       loginState.setLoginLoading(false);

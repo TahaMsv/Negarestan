@@ -67,8 +67,8 @@ class MyTextTheme {
   static const lightGrey20 = TextStyle(fontSize: 20, color: MyColors.grey);
   static const lightGrey22 = TextStyle(color: MyColors.lightGrey, fontSize: 22);
   static const darkGrey12 = TextStyle(color: MyColors.darkGrey, fontSize: 15);
-  static const darkGrey12w500 = TextStyle(color: MyColors.darkGrey,fontWeight: FontWeight.w500, fontSize: 15);
-  static const darkGreyBold17 = TextStyle(color: MyColors.darkGrey, fontWeight: FontWeight.bold, fontSize: 15);
+  static const darkGrey12w500 = TextStyle(color: MyColors.darkGrey,fontWeight: FontWeight.w500, fontSize: 12);
+  static const darkGreyBold17 = TextStyle(color: MyColors.darkGrey, fontWeight: FontWeight.bold, fontSize: 17);
   static const darkGreyBold15 = TextStyle(color: MyColors.darkGrey, fontWeight: FontWeight.bold, fontSize: 15);
   static const darkGreyBold13 = TextStyle(color: MyColors.darkGrey, fontWeight: FontWeight.bold, fontSize: 13);
   static const darkGreyBold22 = TextStyle(color: MyColors.darkGrey, fontWeight: FontWeight.bold, fontSize: 22);

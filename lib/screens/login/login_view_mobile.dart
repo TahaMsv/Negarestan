@@ -106,6 +106,7 @@ class LoginForm extends StatelessWidget {
             bgColor: MyColors.myBlue,
             textColor: MyColors.white,
             fgColor: MyColors.white,
+            isLoading: loginState.loginLoading,
             function: () {
               final LoginController loginController = getIt<LoginController>();
               loginController.login();
@@ -189,7 +190,7 @@ class SignUp extends StatelessWidget {
       margin: const EdgeInsets.only(top: 80),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       width: loginBoxWidth,
-      height: 610,
+      height: 630,
       decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
       child: ListView(
         children: [

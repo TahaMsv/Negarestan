@@ -1,4 +1,6 @@
 import 'package:negarestan/core/constants/apis.dart';
+import 'package:negarestan/screens/login/login_controller.dart';
+import 'package:negarestan/screens/login/login_state.dart';
 import 'package:negarestan/screens/profile/profile_repository.dart';
 import 'package:negarestan/screens/profile/profile_state.dart';
 import 'package:negarestan/screens/profile/usecases/me_usecase.dart';
@@ -41,7 +43,10 @@ class ProfileController extends MainController {
       if (response.statusCode == 200) {
         User user = User.fromJson(response.data);
         final HomeState homeState = getIt<HomeState>();
+        final LoginController loginController = getIt<LoginController>();
         homeState.setUser(user);
+        print(user);
+        loginController.clearLoginForm();
         nav.goToName(RouteNames.projects);
       }
     }
