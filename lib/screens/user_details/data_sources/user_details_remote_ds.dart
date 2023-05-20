@@ -1,4 +1,6 @@
+import 'package:negarestan/core/classes/user.dart';
 import 'package:negarestan/screens/user_details/usecases/unfollow_usecase.dart';
+import 'package:negarestan/screens/user_details/usecases/user_details_usecase.dart';
 import 'package:network_manager/network_manager.dart';
 
 import '../../../core/constants/apis.dart';
@@ -22,7 +24,7 @@ class UserDetailsRemoteDataSource implements UserDetailsDataSourceInterface {
       throw ServerException(
         code: followResponse.responseCode,
         message: followResponse.extractedMessage!,
-        trace: StackTrace.fromString("PeopleRemoteDataSource.login"),
+        trace: StackTrace.fromString("UserDetailsRemoteDataSource.follow"),
       );
     }
   }
@@ -31,5 +33,28 @@ class UserDetailsRemoteDataSource implements UserDetailsDataSourceInterface {
   Future<bool> unfollow(UnFollowRequest request) {
     // TODO: implement unfollow
     throw UnimplementedError();
+  }
+
+  @override
+  Future<User> userDetails(UserDetailsRequest request) async {
+    NetworkRequest userDNR = NetworkRequest(api: '${Apis.baseUrl}users/${request.userID}/v0/', data: request.toJson(), timeOut: const Duration(seconds: 15));
+   print(userDNR.api);
+    NetworkResponse uDResponse = await userDNR.get();
+    print(uDResponse.responseStatus);
+    print(uDResponse.responseDetails);
+    if (uDResponse.responseStatus) {
+      try {
+        User user = User.fromJson(uDResponse.responseBody);
+        return user;
+      } catch (e, trace) {
+        throw ParseException(message: e.toString(), trace: trace);
+      }
+    } else {
+      throw ServerException(
+        code: uDResponse.responseCode,
+        message: uDResponse.extractedMessage!,
+        trace: StackTrace.fromString("UserDetailsRemoteDataSource.userDetials"),
+      );
+    }
   }
 }

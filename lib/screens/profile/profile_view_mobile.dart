@@ -11,6 +11,7 @@ import '../../core/constants/assets.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/UserStats.dart';
 import '../../widgets/image_circle_avatar.dart';
 
 class ProfileView extends StatelessWidget {
@@ -76,7 +77,7 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const UserStats(),
+            UserStats(user: user),
             const SizedBox(height: 10),
             Center(
               child: ToggleSwitch(
@@ -127,91 +128,6 @@ class ProfileView extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class UserStats extends StatelessWidget {
-  const UserStats({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    HomeState homeState = context.watch<HomeState>();
-    User user = homeState.user;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Container(
-        decoration: const BoxDecoration(
-          // border: Border.all(color: borderColor, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: MyColors.customGrey,
-          // borderRadius: borderRadius,
-        ),
-        height: 70,
-        child: Container(
-          // color: Colors.yellow,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              StatDetail(users: user.followings!, text: "Following"),
-              Container(
-                margin: const EdgeInsets.only(left: 10),
-                child: StatDetail(users: user.followers!, text: "Followers"),
-              ),
-              SizedBox(
-                width: 100,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "60",
-                      style: MyTextTheme.boldWhite24,
-                    ),
-                    Text(
-                      "Post",
-                      style: MyTextTheme.white14,
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class StatDetail extends StatelessWidget {
-  const StatDetail({
-    super.key,
-    required this.users,
-    required this.text,
-  });
-
-  final List<User> users;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            users.length.toString(),
-            style: MyTextTheme.boldWhite24,
-          ),
-          Text(
-            text,
-            style: MyTextTheme.white14,
-          )
-        ],
       ),
     );
   }

@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
         iconTheme: const IconThemeData(color: MyColors.darkBlue),
         backgroundColor: Colors.black,
         actions: [
-          ImageCircleAvatar(),
+          const ImageCircleAvatar(),
         ],
         // title: const Image(
         //   height: 50,
@@ -65,23 +65,23 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             SizedBox(
-              height: 180,
+              height: 200,
               child: DrawerHeader(
                 decoration: const BoxDecoration(
                   color: MyColors.white,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    CircleAvatar(
+                  children:  [
+                    const CircleAvatar(
                       radius: 40.0, // adjust the radius as needed
                       backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Text(
-                      'Username',
+                      homeState.user.username!,
                       style: MyTextTheme.darkGreyW70020,
                     ),
                   ],
@@ -133,7 +133,7 @@ class _HomeViewState extends State<HomeView> {
         child: widget.childWidget,
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(top: BorderSide(width: 1.5, color: Colors.white)),
           color: Colors.white,
         ),

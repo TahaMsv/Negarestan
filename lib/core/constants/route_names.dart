@@ -10,4 +10,5 @@ class RouteNames {
   static const projects = '/projects';
   static const people = '/people';
   static const profile = '/profile';
+  static const userDetails = '/userDetails';
 }

@@ -27,6 +27,10 @@ import '../screens/search_screen/data_sources/search_remote_ds.dart';
 import '../screens/search_screen/search_controller.dart';
 import '../screens/search_screen/search_repository.dart';
 import '../screens/search_screen/search_state.dart';
+import '../screens/user_details/data_sources/user_details_remote_ds.dart';
+import '../screens/user_details/user_details_controller.dart';
+import '../screens/user_details/user_details_repository.dart';
+import '../screens/user_details/user_details_state.dart';
 import 'constants/route_names.dart';
 import 'database/share_pref.dart';
 import 'navigation/navigation_service.dart';
@@ -197,6 +201,29 @@ Future<void> init() async {
   ProfileController profileController = ProfileController();
   getIt.registerLazySingleton(() => profileController);
   navigationService.registerController(RouteNames.profile, profileController);
+
+  ///UserDetails-------------------------------------------------------------------------------------------------------------------
+
+  ///state
+  UserDetailsState userDetailsState = UserDetailsState();
+  getIt.registerLazySingleton(() => userDetailsState);
+
+  ///data-sources
+  // UserDetailsLocalDataSource userDetailsLocalDataSource = UserDetailsLocalDataSource(sharedPreferences: sp, objectBox: objectBox);
+  UserDetailsRemoteDataSource userDetailsRemoteDataSource = UserDetailsRemoteDataSource();
+
+  ///repository
+  UserDetailsRepository userDetailsRepository = UserDetailsRepository(
+    userDetailsRemoteDataSource: userDetailsRemoteDataSource,
+    // userDetailsLocalDataSource: userDetailsLocalDataSource,
+    networkInfo: networkInfo,
+  );
+  getIt.registerLazySingleton(() => userDetailsRepository);
+
+  ///controller
+  UserDetailsController userDetailsController = UserDetailsController();
+  getIt.registerLazySingleton(() => userDetailsController);
+  navigationService.registerController(RouteNames.userDetails, userDetailsController);
 }
 
 initNetworkManager() {

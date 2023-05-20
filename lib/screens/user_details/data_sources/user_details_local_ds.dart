@@ -1,4 +1,6 @@
+import 'package:negarestan/core/classes/user.dart';
 import 'package:negarestan/screens/user_details/usecases/unfollow_usecase.dart';
+import 'package:negarestan/screens/user_details/usecases/user_details_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../interfaces/user_details_data_source_interface.dart';
@@ -18,6 +20,11 @@ class UserDetailsLocalDataSource implements UserDetailsDataSourceInterface {
 
   @override
   Future<bool> unfollow(UnFollowRequest request) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<User> userDetails(UserDetailsRequest request) {
     throw UnimplementedError();
   }
 

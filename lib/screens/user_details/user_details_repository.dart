@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:negarestan/screens/user_details/usecases/follow_usecase.dart';
 import 'package:negarestan/screens/user_details/usecases/unfollow_usecase.dart';
+import 'package:negarestan/screens/user_details/usecases/user_details_usecase.dart';
+import '../../core/classes/user.dart';
 import '../../core/error/exception.dart';
 import '../../core/error/failures.dart';
 import '../../core/platform/network_info.dart';
@@ -12,7 +14,11 @@ import 'interfaces/user_details_repository_interface.dart';
 class UserDetailsRepository implements UserDetailsRepositoryInterface {
   final UserDetailsRemoteDataSource userDetailsRemoteDataSource;
   final NetworkInfo? networkInfo;
-  UserDetailsRepository({required this.userDetailsRemoteDataSource, required this.networkInfo, });
+
+  UserDetailsRepository({
+    required this.userDetailsRemoteDataSource,
+    required this.networkInfo,
+  });
 
   @override
   Future<Either<Failure, bool>> follow(FollowRequest followRequest) async {
@@ -28,7 +34,7 @@ class UserDetailsRepository implements UserDetailsRepositoryInterface {
         ConnectionFailure.fromAppException(
           ConnectionException(
             message: "You are not connected to internet!",
-            trace: StackTrace.fromString("UserDetails repository: login"),
+            trace: StackTrace.fromString("UserDetails repository: follow"),
           ),
         ),
       );
@@ -42,4 +48,25 @@ class UserDetailsRepository implements UserDetailsRepositoryInterface {
     throw UnimplementedError();
   }
 
+  @override
+  Future<Either<Failure, User>> userDetails(UserDetailsRequest userDetailsRequest) async {
+    if (await networkInfo!.isConnected) {
+      try {
+        User user = await userDetailsRemoteDataSource.userDetails(userDetailsRequest);
+        return Right(user);
+      } on AppException catch (e) {
+        return Left(ServerFailure.fromAppException(e));
+      }
+    } else {
+      return Left(
+        ConnectionFailure.fromAppException(
+          ConnectionException(
+            message: "You are not connected to internet!",
+            trace: StackTrace.fromString("UserDetails repository: userDetails"),
+          ),
+        ),
+      );
+      // }
+    }
+  }
 }

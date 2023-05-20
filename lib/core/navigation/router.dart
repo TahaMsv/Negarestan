@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:negarestan/screens/People/people_view_mobile.dart';
+import 'package:negarestan/screens/user_details/user_details_view_mobile.dart';
 import '../../screens/home/home_view_mobile.dart';
 import '../../screens/login/login_state.dart';
 import '../../screens/login/login_view_mobile.dart';
@@ -55,7 +56,18 @@ class MyRouter {
               return PeopleView();
               // }
             },
+            routes: [
+              GoRoute(
+                path: "userDetails",
+                name: "userDetails",
+                builder: (BuildContext context, GoRouterState state) {
+                  return UserDetailsView();
+                  // }
+                },
+              ),
+            ],
           ),
+
           GoRoute(
             path: RouteNames.search,
             name: RouteNames.search,
@@ -74,6 +86,8 @@ class MyRouter {
           ),
         ],
       ),
+
+
     ];
     _router = GoRouter(
       initialLocation: RouteNames.login,
@@ -95,7 +109,6 @@ class MyRouter {
       },
     );
   }
-
 
   static GoRouter get router => _router;
 
