@@ -8,6 +8,7 @@ import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../widgets/image_circle_avatar.dart';
+import '../../widgets/search.dart';
 import 'home_controller.dart';
 import 'home_state.dart';
 
@@ -33,7 +34,9 @@ class _HomeViewState extends State<HomeView> {
         iconTheme: const IconThemeData(color: MyColors.darkBlue),
         backgroundColor: Colors.black,
         actions: [
-          const ImageCircleAvatar(),
+          _currentIndex == 2 ? IconButton(onPressed: () {
+            showSearch(context: context, delegate: SearchUser());
+          }, icon: const Icon(Icons.search), color: Colors.white,) : const ImageCircleAvatar(),
         ],
         // title: const Image(
         //   height: 50,
@@ -41,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
         //   image: AssetImage(AssetImages.app_logo),
         // ),
         centerTitle: true,
-        leading: Builder(
+        leading:_currentIndex ==3 ?  Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(
@@ -55,9 +58,9 @@ class _HomeViewState extends State<HomeView> {
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );
           },
-        ),
+        ) : null,
       ),
-      drawer: Drawer(
+      drawer:_currentIndex ==3 ?  Drawer(
         width: 250,
         backgroundColor: MyColors.white,
         child: ListView(
@@ -72,7 +75,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  [
+                  children: [
                     const CircleAvatar(
                       radius: 40.0, // adjust the radius as needed
                       backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
@@ -81,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                       height: 15,
                     ),
                     Text(
-                      homeState.user.username!,
+                      "homeState.user.username!",
                       style: MyTextTheme.darkGreyW70020,
                     ),
                   ],
@@ -128,7 +131,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-      ),
+      ) : null,
       body: Container(
         child: widget.childWidget,
       ),

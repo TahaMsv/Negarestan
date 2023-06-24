@@ -78,7 +78,8 @@ class LoginController extends MainController {
         await NetworkOption.setAccessToken(token);
         isSuccess = true;
         final ProfileController profileController = getIt<ProfileController>();
-        profileController.me(token);
+        profileController.me(token, true);
+
       });
 
       if (isSuccess) {}

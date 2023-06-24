@@ -6,5 +6,6 @@ class Apis {
   static const logout = 'users/signout/v0/';
   static const signup = 'users/signup/v0/';
   static const follow = 'users/follow/v0/';
+  static const unfollow = 'users/unfollow/v0/';
   static const me = 'users/me/v0/';
 }

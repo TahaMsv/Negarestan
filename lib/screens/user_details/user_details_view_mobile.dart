@@ -79,9 +79,11 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                         MyElevatedButton(
                           height: 35,
                           width: 200,
-                          buttonText: "Follow",
-                          bgColor: MyColors.darkBlue,
-                          function: () {},
+                          buttonText: userDetailsState.isFollowed ? "Unfollow" : "Follow",
+                          bgColor: userDetailsState.isFollowed ?MyColors.darkGrey: MyColors.darkBlue,
+                          function: () {
+                            userDetailsController.changeStateOfFollow();
+                          },
                           textColor: Colors.white,
                           fgColor: Colors.white,
                           borderRadius: 20,

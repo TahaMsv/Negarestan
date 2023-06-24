@@ -23,4 +23,14 @@ class UserDetailsState with ChangeNotifier {
     userDetails = user;
     notifyListeners();
   }
+
+  bool _isFollowed = true;
+
+  bool get isFollowed => _isFollowed;
+
+  void setIsFollowed(bool val) {
+    _isFollowed = val;
+    notifyListeners();
+  }
+
 }

@@ -34,20 +34,27 @@ class ProfileController extends MainController {
   //   profileState.setIsLoading(false);
   // }
 
-  void me(String token) async {
+  void me(String token, bool fromLogin) async {
     if (!profileState.isLoading) {
       profileState.setIsLoading(true);
-      final dio = Dio();
-      dio.options.headers["Authorization"] = "Token $token";
-      final response = await dio.get(Apis.baseUrl + Apis.me);
-      if (response.statusCode == 200) {
-        User user = User.fromJson(response.data);
-        final HomeState homeState = getIt<HomeState>();
-        final LoginController loginController = getIt<LoginController>();
-        homeState.setUser(user);
-        print(user);
-        loginController.clearLoginForm();
-        nav.goToName(RouteNames.projects);
+      try {
+        final dio = Dio();
+        dio.options.headers["Authorization"] = "Token $token";
+        final response = await dio.get(Apis.baseUrl + Apis.me);
+        if (response.statusCode == 200) {
+          User user = User.fromJson(response.data);
+          final HomeState homeState = getIt<HomeState>();
+          final LoginController loginController = getIt<LoginController>();
+          user.token = token;
+          homeState.setUser(user);
+          print(user);
+          loginController.clearLoginForm();
+          if (fromLogin) {
+            nav.goToName(RouteNames.projects);
+          }
+        }
+      } catch (ex) {
+        profileState.setIsLoading(false);
       }
     }
     profileState.setIsLoading(false);

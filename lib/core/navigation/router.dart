@@ -67,7 +67,6 @@ class MyRouter {
               ),
             ],
           ),
-
           GoRoute(
             path: RouteNames.search,
             name: RouteNames.search,
@@ -86,11 +85,18 @@ class MyRouter {
           ),
         ],
       ),
-
-
+      MyRoute(
+        path: RouteNames.userDetails,
+        name: RouteNames.userDetails,
+        title: '',
+        builder: (BuildContext context, GoRouterState state) {
+          return UserDetailsView();
+          // }
+        },
+      ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.login,
+      initialLocation: RouteNames.search,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {

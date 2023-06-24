@@ -33,6 +33,7 @@ class ProjectsView extends StatelessWidget {
                 children: List.generate(
                   10,
                   (index) => Card(
+                    color: MyColors.customGrey,
                   margin: const EdgeInsets.only(bottom: 20),
                     child: Container(
                       margin: const EdgeInsets.all(5),
@@ -61,7 +62,7 @@ class ProjectsView extends StatelessWidget {
                                     Text(
                                       '10 k',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: MyColors.darkGrey),
+                                      style: TextStyle(color: MyColors.white),
                                     ),
                                     SizedBox(width: 3),
                                     Icon(Icons.remove_red_eye, color: MyColors.blueAccent, size: 20)
@@ -70,7 +71,7 @@ class ProjectsView extends StatelessWidget {
                                 Text(
                                   'Project name $index',
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(color: MyColors.darkGrey, fontSize: 17),
+                                  style: const TextStyle(color: MyColors.white, fontSize: 17),
                                 ),
                                 Row(
                                   children: const [
@@ -79,7 +80,7 @@ class ProjectsView extends StatelessWidget {
                                     Text(
                                       '10 k',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: MyColors.darkGrey),
+                                      style: TextStyle(color: MyColors.white),
                                     ),
                                   ],
                                 ),
