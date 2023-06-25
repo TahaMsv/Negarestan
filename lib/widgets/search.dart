@@ -84,23 +84,6 @@ class SearchUser extends SearchDelegate {
         });
   }
 
-  @override
-  // Widget buildSuggestions(BuildContext context) {
-  //   return Container(
-  //     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-  //     child: Row(
-  //       children: [
-  //         Container(
-  //           width: 80,
-  //           height: 40,
-  //           color: MyColors.darkGrey,
-  //           alignment: Alignment.center,
-  //           child: Text("People" ,style: MyTextTheme.white16,),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget buildSuggestions(BuildContext context) {
     return Center(
       child: Text("Search ..."),

@@ -12,4 +12,6 @@ class RouteNames {
   static const peopleSearch = '/peopleSearch';
   static const profile = '/profile';
   static const userDetails = '/userDetails';
+  static const createPost = '/createPost';
+  static const postDetails = '/postDetails';
 }

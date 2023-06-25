@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
+import '../../widgets/trens_post.dart';
 import '../home/home_controller.dart';
 
 class SearchView extends StatelessWidget {
@@ -48,51 +49,7 @@ class SearchView extends StatelessWidget {
   }
 }
 
-class TrendPostsList extends StatelessWidget {
-  const TrendPostsList({
-    super.key,
-    required this.galleryWidth,
-    required this.posts,
-  });
 
-  final double galleryWidth;
-  final List posts;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: List.generate(
-        25,
-            (index) => GestureDetector(
-              onTap: (){
-                final HomeController homeController = getIt<HomeController>();
-                  homeController.nav.pushNamed(RouteNames.userDetails);
-              },
-              child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 2),
-          height: galleryWidth / 3,
-          width: galleryWidth / 3,
-          // color: MyColors.blueAccent,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              // color: MyColors.white,
-              border: Border.all(
-                // color: Colors.black26,
-                width: 1.0,
-              ),
-          ),
-          child: Image(
-              height: galleryWidth / 3,
-              width: galleryWidth / 3,
-              image: AssetImage(posts[index % 7]),
-              fit: BoxFit.cover,
-          ),
-        ),
-            ),
-      ),
-    );
-  }
-}
 // class SearchBar extends StatelessWidget {
 //   const SearchBar({
 //     Key? key,

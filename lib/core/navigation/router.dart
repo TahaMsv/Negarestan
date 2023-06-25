@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:negarestan/screens/People/people_view_mobile.dart';
+import 'package:negarestan/screens/create_post/create_post_view_mobile.dart';
 import 'package:negarestan/screens/user_details/user_details_view_mobile.dart';
 import '../../screens/home/home_view_mobile.dart';
 import '../../screens/login/login_state.dart';
 import '../../screens/login/login_view_mobile.dart';
+import '../../screens/post_details/post_details_view_mobile.dart';
 import '../../screens/profile/profile_view_mobile.dart';
 import '../../screens/projects/projects_view_mobile.dart';
 import '../../screens/search_screen/search_view_mobile.dart';
@@ -48,6 +50,24 @@ class MyRouter {
               return ProjectsView();
               // }
             },
+            routes: [
+              GoRoute(
+                path: "postDetails",
+                name: "postDetails",
+                builder: (BuildContext context, GoRouterState state) {
+                  return PostDetailsView();
+                  // }
+                },
+              ),
+              GoRoute(
+                path: "createPost",
+                name: "createPost",
+                builder: (BuildContext context, GoRouterState state) {
+                  return CreatePostView();
+                  // }
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: RouteNames.people,
@@ -96,7 +116,7 @@ class MyRouter {
       ),
     ];
     _router = GoRouter(
-      initialLocation: RouteNames.search,
+      initialLocation: RouteNames.projects,
       refreshListenable: getIt<LoginState>(),
       routes: _routes,
       redirect: (state) {

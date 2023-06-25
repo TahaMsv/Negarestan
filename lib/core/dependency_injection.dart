@@ -6,6 +6,10 @@ import '../screens/People/data_sources/people_remote_ds.dart';
 import '../screens/People/people_controller.dart';
 import '../screens/People/people_repository.dart';
 import '../screens/People/people_state.dart';
+import '../screens/create_post/create_post__state.dart';
+import '../screens/create_post/create_post_controller.dart';
+import '../screens/create_post/create_post_repository.dart';
+import '../screens/create_post/data_sources/create_post_remote_ds.dart';
 import '../screens/home/data_sources/home_remote_ds.dart';
 import '../screens/home/home_controller.dart';
 import '../screens/home/home_repository.dart';
@@ -15,6 +19,10 @@ import '../screens/login/data_sources/login_remote_ds.dart';
 import '../screens/login/login_controller.dart';
 import '../screens/login/login_repository.dart';
 import '../screens/login/login_state.dart';
+import '../screens/post_details/data_sources/post_details_remote_ds.dart';
+import '../screens/post_details/post_details_controller.dart';
+import '../screens/post_details/post_details_repository.dart';
+import '../screens/post_details/post_details_state.dart';
 import '../screens/profile/data_sources/profile_remote_ds.dart';
 import '../screens/profile/profile_controller.dart';
 import '../screens/profile/profile_repository.dart';
@@ -224,6 +232,52 @@ Future<void> init() async {
   UserDetailsController userDetailsController = UserDetailsController();
   getIt.registerLazySingleton(() => userDetailsController);
   navigationService.registerController(RouteNames.userDetails, userDetailsController);
+
+  ///CreatePost-------------------------------------------------------------------------------------------------------------------
+
+  ///state
+  CreatePostState createPostState = CreatePostState();
+  getIt.registerLazySingleton(() => createPostState);
+
+  ///data-sources
+  // CreatePostLocalDataSource createPostLocalDataSource = CreatePostLocalDataSource(sharedPreferences: sp, objectBox: objectBox);
+  CreatePostRemoteDataSource createPostRemoteDataSource = CreatePostRemoteDataSource();
+
+  ///repository
+  CreatePostRepository createPostRepository = CreatePostRepository(
+    createPostRemoteDataSource: createPostRemoteDataSource,
+    // createPostLocalDataSource: createPostLocalDataSource,
+    // networkInfo: networkInfo,
+  );
+  getIt.registerLazySingleton(() => createPostRepository);
+
+  ///controller
+  CreatePostController createPostController = CreatePostController();
+  getIt.registerLazySingleton(() => createPostController);
+  navigationService.registerController(RouteNames.createPost, createPostController);
+
+  ///PostDetails-------------------------------------------------------------------------------------------------------------------
+
+  ///state
+  PostDetailsState postDetailsState = PostDetailsState();
+  getIt.registerLazySingleton(() => postDetailsState);
+
+  ///data-sources
+  // PostDetailsLocalDataSource postDetailsLocalDataSource = PostDetailsLocalDataSource(sharedPreferences: sp, objectBox: objectBox);
+  PostDetailsRemoteDataSource postDetailsRemoteDataSource = PostDetailsRemoteDataSource();
+
+  ///repository
+  PostDetailsRepository postDetailsRepository = PostDetailsRepository(
+    postDetailsRemoteDataSource: postDetailsRemoteDataSource,
+    // postDetailsLocalDataSource: postDetailsLocalDataSource,
+    // networkInfo: networkInfo,
+  );
+  getIt.registerLazySingleton(() => postDetailsRepository);
+
+  ///controller
+  PostDetailsController postDetailsController = PostDetailsController();
+  getIt.registerLazySingleton(() => postDetailsController);
+  navigationService.registerController(RouteNames.postDetails, postDetailsController);
 }
 
 initNetworkManager() {
