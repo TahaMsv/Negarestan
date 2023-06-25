@@ -78,22 +78,21 @@ class UserDetailsController extends MainController {
   @override
   void onCreate() {}
 
-  void updateIsFollowed() {
-    print("Here82");
-    if (userDetailsState.userDetails != null) {
-      final HomeState homeState = getIt<HomeState>();
-      print(homeState.user.id);
-      print("Here85");
-      userDetailsState.userDetails!.followers!.map((e) {
-        print(e.id);
-        if (e.id == homeState.user.id) userDetailsState.setIsFollowed(true);
-      });
-      userDetailsState.setIsFollowed(false);
-      print("Here91");
-    }
-    print("Here94");
-    userDetailsState.setIsFollowed(true);
-  }
+  // void updateIsFollowed() {
+  //   print("Here82");
+  //   if (userDetailsState.userDetails != null) {
+  //     final HomeState homeState = getIt<HomeState>();
+  //     print("Here85");
+  //     userDetailsState.userDetails!.followers!.map((e) {
+  //       print(e.id);
+  //       if (e.id == homeState.user.id) userDetailsState.setIsFollowed(true);
+  //     });
+  //     userDetailsState.setIsFollowed(false);
+  //     print("Here91");
+  //   }
+  //   print("Here94");
+  //   userDetailsState.setIsFollowed(true);
+  // }
 
   void changeStateOfFollow() async {
     if (userDetailsState.isFollowed) {
@@ -104,29 +103,21 @@ class UserDetailsController extends MainController {
   }
 
   void follow() async {
-    print("here109");
     if (!userDetailsState.isLoading) {
-      print("here111");
       userDetailsState.setIsLoading(true);
       try {
         final dio = Dio();
-        final LoginState loginState = getIt<LoginState>();
-        String token = loginState.token;
+        final HomeState homeState = getIt<HomeState>();
+        String token = homeState.user.token!;
         dio.options.headers["Authorization"] = "Token $token";
-        print(token);
-        print(userDetailsState.userDetails!.id);
-        print("here118");
+        dio.options.headers['Content-Type'] = 'application/json';
         final response = await dio.post(
-          Apis.baseUrl + Apis.unfollow,
-          queryParameters: {"user_id": userDetailsState.userDetails!.id},
+          Apis.baseUrl + Apis.follow,
+          data: {"user_id": '${userDetailsState.userDetails!.id}'},
         );
         print(response.statusCode);
         if (response.statusCode == 200) {
-          final HomeState homeState = getIt<HomeState>();
-          homeState.user.followings!.add(userDetailsState.userDetails!);
-          userDetailsState.userDetails!.followers!.add(homeState.user);
-          print("here128");
-          updateIsFollowed();
+          userDetailsState.setIsFollowed(true);
         }
       } catch (e) {
         print(e.toString());
@@ -137,30 +128,22 @@ class UserDetailsController extends MainController {
   }
 
   void unfollow() async {
-    print("here138");
     if (!userDetailsState.isLoading) {
-      print("here140");
       userDetailsState.setIsLoading(true);
       try {
         final dio = Dio();
-        final LoginState loginState = getIt<LoginState>();
-        String token = loginState.token;
-        dio.options.headers["Authorization"] = "Token 970482d524f48154417be365911fdd692b18d5c2";
+        final HomeState homeState = getIt<HomeState>();
+        String token = homeState.user.token!;
+        dio.options.headers["Authorization"] = "Token $token";
         dio.options.headers['Content-Type'] = 'application/json';
-        print("here147");
-        print(token);
-        print(userDetailsState.userDetails!.id);
+
         final response = await dio.post(
-          "https://maktoom.darkube.app/users/unfollow/v0/",
-          queryParameters: {"user_id": 13},
+          Apis.baseUrl + Apis.unfollow,
+          data: {"user_id": '${userDetailsState.userDetails!.id}'},
         );
         print(response.statusCode);
         if (response.statusCode == 200) {
-          final HomeState homeState = getIt<HomeState>();
-          homeState.user.followings!.remove(userDetailsState.userDetails!);
-          userDetailsState.userDetails!.followers!.remove(homeState.user);
-          print("here157");
-          updateIsFollowed();
+          userDetailsState.setIsFollowed(false);
         }
       } catch (e) {
         print(e);
