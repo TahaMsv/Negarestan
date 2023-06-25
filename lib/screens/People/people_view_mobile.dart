@@ -21,7 +21,7 @@ class PeopleView extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.black,
       // appBar: AppBar(
       //
       // ),
@@ -32,127 +32,129 @@ class PeopleView extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Center(
-              child: Wrap(
-                  children: homeState.user!.followers!
-                      .map((f) => Container(
-                            margin: const EdgeInsets.only(bottom: 15),
-                            height: 300,
-                            width: 350,
-                            // color: MyColors.blueAccent,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              // color: MyColors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: MyColors.transparent,
-                                  blurRadius: 1,
-                                  offset: Offset(0, 4), // Shadow position
-                                ),
-                              ],
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.all(5),
-                              child: Stack(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(
-                                    width: 350,
-                                    height: 285,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                        child: Image(
-                                          image: AssetImage(AssetImages.loginBG3),
-                                          fit: BoxFit.cover,
-                                        )),
+            homeState.user!.followings!.length == 0
+                ? const Center(child: Text('No Following', textAlign: TextAlign.center, style: MyTextTheme.white20))
+                : Center(
+                    child: Wrap(
+                        children: homeState.user!.followings!
+                            .map((following) => Container(
+                                  margin: const EdgeInsets.only(bottom: 15),
+                                  height: 300,
+                                  width: 350,
+                                  // color: MyColors.blueAccent,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    // color: MyColors.white,
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: MyColors.transparent,
+                                        blurRadius: 1,
+                                        offset: Offset(0, 4), // Shadow position
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 150),
-                                    height: 150,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: MyColors.customGrey,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Stack(
+                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
+                                        const SizedBox(
+                                          width: 350,
+                                          height: 285,
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                              child: Image(
+                                                image: AssetImage(AssetImages.loginBG3),
+                                                fit: BoxFit.cover,
+                                              )),
+                                        ),
                                         Container(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          margin: const EdgeInsets.only(top: 150),
+                                          height: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(8),
+                                            color: MyColors.customGrey,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.email, color: MyColors.darkBlue, size: 25),
-                                              Icon(Icons.add, color: MyColors.green, size: 28),
+                                              Container(
+                                                margin: const EdgeInsets.only(top: 10),
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: const [
+                                                    Icon(Icons.email, color: MyColors.darkBlue, size: 25),
+                                                    Icon(Icons.add, color: MyColors.green, size: 28),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  final UserDetailsController userDetailsController = getIt<UserDetailsController>();
+                                                  userDetailsController.getUserDetails(userID: following.id.toString());
+                                                },
+                                                child: Text(following.username!, textAlign: TextAlign.center, style: MyTextTheme.whiteW50022),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              const Text('Graphic design', textAlign: TextAlign.center, style: MyTextTheme.whiteW40015),
+                                              const SizedBox(height: 10),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    children: const [
+                                                      Text(
+                                                        '10 k',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(color: MyColors.white),
+                                                      ),
+                                                      SizedBox(width: 3),
+                                                      Icon(Icons.person, color: MyColors.white, size: 20),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Row(
+                                                    children: const [
+                                                      Text(
+                                                        '10 k',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(color: MyColors.white),
+                                                      ),
+                                                      SizedBox(width: 3),
+                                                      Icon(Icons.remove_red_eye, color: MyColors.blueAccent, size: 20)
+                                                    ],
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Row(
+                                                    children: const [
+                                                      Text(
+                                                        '10 k',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(color: MyColors.white),
+                                                      ),
+                                                      SizedBox(width: 3),
+                                                      Icon(Icons.favorite, color: MyColors.red, size: 20),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          margin: EdgeInsets.only(top: 10),
-                                          padding: EdgeInsets.symmetric(horizontal: 10),
                                         ),
-                                        SizedBox(height: 10),
-                                        GestureDetector(
-                                          onTap: () {
-                                            final UserDetailsController userDetailsController = getIt<UserDetailsController>();
-                                            userDetailsController.getUserDetails(userID: f.id.toString());
-                                          },
-                                          child: Text(f.username!, textAlign: TextAlign.center, style: MyTextTheme.whiteW50022),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text('Graphic design', textAlign: TextAlign.center, style: MyTextTheme.whiteW40015),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              children: const [
-                                                Text(
-                                                  '10 k',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(color: MyColors.white),
-                                                ),
-                                                SizedBox(width: 3),
-                                                Icon(Icons.person, color: MyColors.white, size: 20),
-                                              ],
-                                            ),
-                                            SizedBox(width: 10),
-                                            Row(
-                                              children: const [
-                                                Text(
-                                                  '10 k',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(color: MyColors.white),
-                                                ),
-                                                SizedBox(width: 3),
-                                                Icon(Icons.remove_red_eye, color: MyColors.blueAccent, size: 20)
-                                              ],
-                                            ),
-                                            SizedBox(width: 10),
-                                            Row(
-                                              children: const [
-                                                Text(
-                                                  '10 k',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(color: MyColors.white),
-                                                ),
-                                                SizedBox(width: 3),
-                                                Icon(Icons.favorite, color: MyColors.red, size: 20),
-                                              ],
-                                            ),
-                                          ],
+                                        const Center(
+                                          child: CircleAvatar(
+                                            radius: 50.0, // adjust the radius as needed
+                                            backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  Center(
-                                    child: CircleAvatar(
-                                      radius: 50.0, // adjust the radius as needed
-                                      backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ))
-                      .toList()),
-            )
+                                ))
+                            .toList()),
+                  )
           ],
         ),
       ),

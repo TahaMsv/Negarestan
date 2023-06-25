@@ -12,7 +12,7 @@ class UserTextInput extends StatelessWidget {
     this.isEmpty = false,
     this.obscureText = false,
     this.width = 400,
-    this.fontSize = 15,
+    this.fontSize = 15,  this.hintColor = Colors.black,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -23,6 +23,7 @@ class UserTextInput extends StatelessWidget {
   final double width;
   final bool obscureText;
   final double fontSize;
+  final Color hintColor;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,9 @@ class UserTextInput extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: languageCode == 'en' ? const EdgeInsets.all(10.0) : const EdgeInsets.all(5.0),
             border: InputBorder.none,
+            hintStyle: TextStyle(color: hintColor),
             hintText: hint,
+
             errorText: isEmpty ? errorText : null,
           ),
         ),

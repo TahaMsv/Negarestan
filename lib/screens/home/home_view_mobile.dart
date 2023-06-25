@@ -84,8 +84,9 @@ class _HomeViewState extends State<HomeView> {
                       height: 15,
                     ),
                     Text(
-                      "homeState.user.username!",
+                      homeState.user.username!,
                       style: MyTextTheme.darkGreyW70020,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -182,3 +183,5 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+
+

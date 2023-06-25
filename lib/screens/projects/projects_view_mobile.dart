@@ -104,6 +104,13 @@ class ProjectsView extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          projectsController.nav.pushNamed('createPost');
+        },
+        backgroundColor: MyColors.myBlue,
+        child: const Icon(Icons.add_circle),
+      ),
     );
   }
 }

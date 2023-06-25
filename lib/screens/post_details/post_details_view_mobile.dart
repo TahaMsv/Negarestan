@@ -32,14 +32,14 @@ class PostDetailsView extends StatelessWidget {
     ];
     double galleryWidth = width - 26;
     return Scaffold(
-      backgroundColor:  MyColors.customGrey,
+      backgroundColor:  MyColors.black,
       body: Container(
         // height: height,
-        color:  MyColors.customGrey,
+        color:  MyColors.black,
         child: ListView(
           children: [
             Container(
-              color: MyColors.customGrey,
+              color: MyColors.black,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: ListView(
                 shrinkWrap: true,
@@ -133,7 +133,7 @@ class PostDetailsView extends StatelessWidget {
               height: 10,
             ),
             Container(
-              color:  MyColors.customGrey,
+              color:  MyColors.black,
               alignment: Alignment.topCenter,
               child: TrendPostsList(galleryWidth: galleryWidth, posts: trendsPost, numberOfPosts: 6,),
             ),
