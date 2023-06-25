@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:negarestan/core/constants/ui.dart';
 import 'package:negarestan/screens/login/login_controller.dart';
+import 'package:negarestan/screens/user_details/user_details_controller.dart';
+import '../../core/classes/user.dart';
 import '../../core/constants/assets.dart';
+import '../../core/constants/route_names.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../widgets/image_circle_avatar.dart';
-import '../../widgets/search.dart';
 import 'home_controller.dart';
 import 'home_state.dart';
 
@@ -34,10 +36,10 @@ class _HomeViewState extends State<HomeView> {
         iconTheme: const IconThemeData(color: MyColors.darkBlue),
         backgroundColor: Colors.black,
         actions: [
-          _currentIndex == 2
+          _currentIndex == 1 || _currentIndex == 2
               ? IconButton(
                   onPressed: () {
-                    showSearch(context: context, delegate: SearchUser());
+                    _currentIndex == 1 ? showSearch(context: context, delegate: SearchUser()) : showSearch(context: context, delegate: SearchPost());
                   },
                   icon: const Icon(Icons.search),
                   color: Colors.white,
@@ -218,6 +220,169 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SearchPost extends SearchDelegate {
+  final _userList = [];
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.close))
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return FutureBuilder<List<String>>(
+        // future: _userList.getuserList(query: query),
+        future: Future.value(["Taha", "Amin", "Kiana", "Hasan"]),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          // List<User>? data = snapshot.data;
+          List<String>? data = ["Taha", "Amin", "Kiana", "Hasan"];
+          return Container(
+            margin: EdgeInsets.only(top: 20),
+            child: ListView.builder(
+                itemCount: data?.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () {
+                      final HomeController homeController = getIt<HomeController>();
+
+                      // Navigator.pushNamed(context, RouteNames.people);
+                      Navigator.pop(context);
+                      homeController.nav.pushNamed(RouteNames.userDetails);
+                    },
+                    title: Row(
+                      children: [
+                        CircleAvatar(),
+                        SizedBox(width: 20),
+                        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Text(
+                            '${data[index]}',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            '{data?[index].email}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ])
+                      ],
+                    ),
+                  );
+                }),
+          );
+        });
+  }
+
+  Widget buildSuggestions(BuildContext context) {
+    return Center(
+      child: Text("Search ..."),
+    );
+  }
+}
+
+class SearchUser extends SearchDelegate {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.close))
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final HomeController homeController = getIt<HomeController>();
+    return FutureBuilder<List<User>>(
+        future: homeController.fetchSuggestedUsers(query),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          List<User>? users = snapshot.data;
+          return Container(
+            margin: EdgeInsets.only(top: 20),
+            child: ListView.builder(
+                itemCount: users?.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () {
+                      final UserDetailsController userDetailsController = getIt<UserDetailsController>();
+                      Navigator.pop(context);
+                      userDetailsController.getUserDetails(userID: users[index].id.toString());
+                    },
+                    title: Row(
+                      children: [
+                        CircleAvatar(),
+                        SizedBox(width: 20),
+                        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Text(
+                            '${users![index].username}',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            '${users![index].firstname} ${users![index].lastname}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ])
+                      ],
+                    ),
+                  );
+                }),
+          );
+        });
+  }
+
+  Widget buildSuggestions(BuildContext context) {
+    return Center(
+      child: Text("Search ..."),
     );
   }
 }

@@ -50,16 +50,15 @@ class UserDetailsController extends MainController {
   // }
   void getUserDetails({required String userID}) async {
     print("here51");
-    userDetailsState.setIsLoading(false);
     if (!userDetailsState.isLoading) {
       nav.pushNamed("userDetails");
       print("here52");
       userDetailsState.setIsLoading(true);
       try {
         final dio = Dio();
-        final LoginState loginState = getIt<LoginState>();
+        final HomeState homeState = getIt<HomeState>();
 
-        String token = loginState.token;
+        String token = homeState.user.token!;
         dio.options.headers["Authorization"] = "Token $token";
         final response = await dio.get(
           '${Apis.baseUrl}users/$userID/v0/',
@@ -67,6 +66,7 @@ class UserDetailsController extends MainController {
         if (response.statusCode == 200) {
           User user = User.fromJson(response.data);
           userDetailsState.setUserDetails(user);
+          userDetailsState.setIsFollowed(homeState.user.followings!.contains(user));
         }
       } catch (e) {
         userDetailsState.setIsLoading(false);
@@ -118,6 +118,8 @@ class UserDetailsController extends MainController {
         print(response.statusCode);
         if (response.statusCode == 200) {
           userDetailsState.setIsFollowed(true);
+          final PeopleState peopleState = getIt<PeopleState>();
+
         }
       } catch (e) {
         print(e.toString());

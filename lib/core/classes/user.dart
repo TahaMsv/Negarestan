@@ -55,8 +55,8 @@ class User {
         institutions: json["institutions"]?.cast<String>(),
         birthDay: json["birthday"] == null ? null : DateTime.parse(json["birthday"]),
         gender: json["gender"],
-        followers:json["followers"] ==null?[]: List<User>.from(json["followers"] .map((x) => User.fromJson(x))),
-        followings: json["following"] ==null?[]: List<User>.from(json["following"] .map((x) => User.fromJson(x))),
+        followers: json["followers"] == null ? [] : List<User>.from(json["followers"].map((x) => User.fromJson(x))),
+        followings: json["following"] == null ? [] : List<User>.from(json["following"].map((x) => User.fromJson(x))),
         createdAt: json["created_at"],
       );
 
@@ -78,6 +78,8 @@ class User {
         "followers": followers,
         "following": followings,
       };
+
+  bool operator ==(u) => u is User && u.id == id;
 }
 
 enum Gender { male, female }

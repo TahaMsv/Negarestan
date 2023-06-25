@@ -8,4 +8,5 @@ class Apis {
   static const follow = 'users/follow/v0/';
   static const unfollow = 'users/unfollow/v0/';
   static const me = 'users/me/v0/';
+  static const search = 'users/search/v0/';
 }
