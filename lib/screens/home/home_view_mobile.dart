@@ -34,9 +34,15 @@ class _HomeViewState extends State<HomeView> {
         iconTheme: const IconThemeData(color: MyColors.darkBlue),
         backgroundColor: Colors.black,
         actions: [
-          _currentIndex == 2 ? IconButton(onPressed: () {
-            showSearch(context: context, delegate: SearchUser());
-          }, icon: const Icon(Icons.search), color: Colors.white,) : const ImageCircleAvatar(),
+          _currentIndex == 2
+              ? IconButton(
+                  onPressed: () {
+                    showSearch(context: context, delegate: SearchUser());
+                  },
+                  icon: const Icon(Icons.search),
+                  color: Colors.white,
+                )
+              : const ImageCircleAvatar(),
         ],
         // title: const Image(
         //   height: 50,
@@ -44,95 +50,127 @@ class _HomeViewState extends State<HomeView> {
         //   image: AssetImage(AssetImages.app_logo),
         // ),
         centerTitle: true,
-        leading:_currentIndex ==3 ?  Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu,
-                size: 30,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ) : null,
+        leading: _currentIndex == 3
+            ? Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              )
+            : null,
       ),
-      drawer:_currentIndex ==3 ?  Drawer(
-        width: 250,
-        backgroundColor: MyColors.white,
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            SizedBox(
-              height: 200,
-              child: DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: MyColors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      radius: 40.0, // adjust the radius as needed
-                      backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
+      drawer: _currentIndex == 3
+          ? Drawer(
+              width: 250,
+              backgroundColor: MyColors.white,
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  SizedBox(
+                    height: 280,
+                    child: DrawerHeader(
+                      decoration: const BoxDecoration(
+                        color: MyColors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(
+                            radius: 40.0, // adjust the radius as needed
+                            backgroundImage: AssetImage(AssetImages.admin_image), // or use AssetImage for local images
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            homeState.user.username!,
+                            style: MyTextTheme.darkGreyW70020,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                homeState.user.firstname!,
+                                style: MyTextTheme.darkGreyW70015,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                homeState.user.lastname!,
+                                style: MyTextTheme.darkGreyW70015,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            homeState.user.email!,
+                            style: MyTextTheme.darkGreyW70015,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      homeState.user.username!,
-                      style: MyTextTheme.darkGreyW70020,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
+                  ),
+                  ListTile(
+                    minLeadingWidth: 0,
+                    horizontalTitleGap: 10,
+                    leading: const Icon(Icons.settings),
+                    title: const Text('Settings'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    minLeadingWidth: 0,
+                    horizontalTitleGap: 10,
+                    leading: const Icon(Icons.timeline),
+                    title: const Text('Time Line'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    minLeadingWidth: 0,
+                    horizontalTitleGap: 10,
+                    leading: const Icon(Icons.work),
+                    title: const Text('Jobs'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    minLeadingWidth: 0,
+                    horizontalTitleGap: 10,
+                    leading: const Icon(Icons.logout),
+                    title: const Text('Log Out'),
+                    onTap: () {
+                      final LoginController loginController = getIt<LoginController>();
+                      loginController.logout();
+                      // Navigator.pop(context);
+                    },
+                  ),
+                ],
               ),
-            ),
-            ListTile(
-              minLeadingWidth: 0,
-              horizontalTitleGap: 10,
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              minLeadingWidth: 0,
-              horizontalTitleGap: 10,
-              leading: const Icon(Icons.timeline),
-              title: const Text('Time Line'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              minLeadingWidth: 0,
-              horizontalTitleGap: 10,
-              leading: const Icon(Icons.work),
-              title: const Text('Jobs'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              minLeadingWidth: 0,
-              horizontalTitleGap: 10,
-              leading: const Icon(Icons.logout),
-              title: const Text('Log Out'),
-              onTap: () {
-                final LoginController loginController = getIt<LoginController>();
-                loginController.logout();
-                // Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ) : null,
+            )
+          : null,
       body: Container(
         child: widget.childWidget,
       ),
@@ -183,5 +221,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-

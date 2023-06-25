@@ -12,7 +12,9 @@ class UserTextInput extends StatelessWidget {
     this.isEmpty = false,
     this.obscureText = false,
     this.width = 400,
-    this.fontSize = 15,  this.hintColor = Colors.black,
+    this.fontSize = 15,
+    this.hintColor = Colors.black,
+    this.textColor = Colors.black,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -24,6 +26,7 @@ class UserTextInput extends StatelessWidget {
   final bool obscureText;
   final double fontSize;
   final Color hintColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +44,12 @@ class UserTextInput extends StatelessWidget {
           obscureText: obscureText,
           textAlignVertical: TextAlignVertical.center,
           controller: controller,
-          style: TextStyle(fontSize: fontSize),
+          style: TextStyle(fontSize: fontSize, color: textColor),
           decoration: InputDecoration(
             contentPadding: languageCode == 'en' ? const EdgeInsets.all(10.0) : const EdgeInsets.all(5.0),
             border: InputBorder.none,
             hintStyle: TextStyle(color: hintColor),
             hintText: hint,
-
             errorText: isEmpty ? errorText : null,
           ),
         ),

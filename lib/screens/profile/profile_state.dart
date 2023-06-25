@@ -10,8 +10,14 @@ class ProfileState with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-    void setIsLoading(bool val) {
-      _isLoading = val;
-      notifyListeners();
-    }
+  void setIsLoading(bool val) {
+    _isLoading = val;
+    notifyListeners();
+  }
+
+  // final TextEditingController usernameC = TextEditingController();
+  final TextEditingController lastNameC = TextEditingController();
+  final TextEditingController firstNameC = TextEditingController();
+  final TextEditingController emailC = TextEditingController();
+
 }

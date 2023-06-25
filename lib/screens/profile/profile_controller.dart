@@ -60,6 +60,38 @@ class ProfileController extends MainController {
     profileState.setIsLoading(false);
   }
 
+  Future<void> editUser() async {
+    final HomeState homeState = getIt<HomeState>();
+    String token = homeState.user.token!;
+    print("Here 66");
+    if (!profileState.isLoading) {
+      print("Here 68");
+      profileState.setIsLoading(true);
+      try {
+        print("Here 71");
+        final dio = Dio();
+        dio.options.headers["Authorization"] = "Token $token";
+        final response = await dio.put(Apis.baseUrl + Apis.me, data: {
+          "email": profileState.emailC.text,
+          "first_name": profileState.firstNameC.text,
+          "last_name": profileState.lastNameC.text,
+        });
+        print("Here 79");
+        if (response.statusCode == 200) {
+          print("Here 81");
+          User user = User.fromJson(response.data);
+          final HomeState homeState = getIt<HomeState>();
+          final LoginController loginController = getIt<LoginController>();
+          user.token = token;
+          homeState.setUser(user);
+        }
+      } catch (ex) {
+        profileState.setIsLoading(false);
+      }
+    }
+    profileState.setIsLoading(false);
+  }
+
   @override
   void onCreate() {}
 }

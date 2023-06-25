@@ -12,6 +12,7 @@ import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/UserStats.dart';
+import '../../widgets/UserTextInput.dart';
 import '../../widgets/image_circle_avatar.dart';
 
 class ProfileView extends StatelessWidget {
@@ -71,7 +72,12 @@ class ProfileView extends StatelessWidget {
                           width: 130,
                           buttonText: "Edit Profile",
                           bgColor: MyColors.darkBlue,
-                          function: () {},
+                          function: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const EditUser()),
+                            );
+                          },
                           textColor: Colors.white,
                           fgColor: Colors.white,
                           borderRadius: 20,
@@ -133,6 +139,115 @@ class ProfileView extends StatelessWidget {
                 ],
               ),
             ),
+    );
+  }
+}
+
+class EditUser extends StatefulWidget {
+  const EditUser({super.key});
+
+  @override
+  State<EditUser> createState() => _EditUserState();
+}
+
+class _EditUserState extends State<EditUser> {
+  @override
+  void initState() {
+    final HomeState homeState = getIt<HomeState>();
+    User user = homeState.user;
+    final ProfileState profileState = getIt<ProfileState>();
+    profileState.lastNameC.text = user.lastname!;
+    profileState.firstNameC.text = user.firstname!;
+    profileState.emailC.text = user.email!;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    ProfileState profileState = context.watch<ProfileState>();
+
+    return Container(
+      color: MyColors.black,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      child: ListView(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Email: ', textAlign: TextAlign.center, style: MyTextTheme.white20),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          UserTextInput(
+            height: 40,
+            hint: 'Email',
+            hintColor: Colors.white.withOpacity(0.5),
+            textColor: Colors.white,
+            controller: profileState.emailC,
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('First Name: ', textAlign: TextAlign.center, style: MyTextTheme.white20),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          UserTextInput(
+            height: 40,
+            hint: 'First name',
+            hintColor: Colors.white.withOpacity(0.5),
+            textColor: Colors.white,
+            controller: profileState.firstNameC,
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Last Name: ', textAlign: TextAlign.center, style: MyTextTheme.white20),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          UserTextInput(
+            height: 40,
+            hint: 'Last name',
+            hintColor: Colors.white.withOpacity(0.5),
+            textColor: Colors.white,
+            controller: profileState.lastNameC,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          MyElevatedButton(
+            height: 50,
+            width: 20,
+            buttonText: "Submit",
+            fontSize: 19,
+            bgColor: MyColors.myBlue,
+            textColor: MyColors.white,
+            fgColor: MyColors.white,
+            isLoading: profileState.isLoading,
+            function: () async {
+              final ProfileController profileController = getIt<ProfileController>();
+              await profileController.editUser();
+              // final LoginController loginController = getIt<LoginController>();
+              // loginController.goToHome();
+            },
+          )
+        ],
+      ),
     );
   }
 }
