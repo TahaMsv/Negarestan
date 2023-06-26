@@ -11,4 +11,5 @@ class Apis {
   static const search = 'users/search/v0/';
   static const createProject = 'projects/v0/';
   static const getProjects = 'projects/v0/';
+  static const suggestProjects = 'projects/suggest/v0/';
 }

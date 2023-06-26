@@ -19,7 +19,7 @@ class HomeController extends MainController {
     switch (index) {
       case 0:
         final ProjectsController projectsController = getIt<ProjectsController>();
-        // projectsController.fetchProjects();
+        projectsController.fetchSuggestedProjects();
         nav.goToName(RouteNames.projects);
         break;
       case 1:

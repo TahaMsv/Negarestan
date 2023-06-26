@@ -32,7 +32,7 @@ class ProjectsView extends StatelessWidget {
             Center(
               child: projectsState.projects.isEmpty
                   ? const Text(
-                      'Loading for projects',
+                      'Loading projects',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: MyColors.white, fontSize: 17),
                     )
@@ -74,7 +74,7 @@ class ProjectsView extends StatelessWidget {
                                           Row(
                                             children: const [
                                               Text(
-                                                '10 k',
+                                                '0',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(color: MyColors.white),
                                               ),
@@ -83,16 +83,16 @@ class ProjectsView extends StatelessWidget {
                                             ],
                                           ),
                                           Text(
-                                            'Project name $index',
+                                            projectsState.projects[index].title,
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(color: MyColors.white, fontSize: 17),
                                           ),
                                           Row(
-                                            children: const [
+                                            children: [
                                               Icon(Icons.favorite, color: MyColors.red, size: 20),
                                               SizedBox(width: 3),
                                               Text(
-                                                '10 k',
+                                                '${projectsState.projects[index].likes.length}',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(color: MyColors.white),
                                               ),
