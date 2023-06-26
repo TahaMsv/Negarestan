@@ -8,6 +8,7 @@ import '../../screens/login/login_state.dart';
 import '../../screens/login/login_view_mobile.dart';
 import '../../screens/post_details/post_details_view_mobile.dart';
 import '../../screens/profile/profile_view_mobile.dart';
+import '../../screens/projects/projects_controller.dart';
 import '../../screens/projects/projects_view_mobile.dart';
 import '../../screens/search_screen/search_view_mobile.dart';
 import '../constants/route_names.dart';
@@ -47,6 +48,7 @@ class MyRouter {
             path: RouteNames.projects,
             name: RouteNames.projects,
             builder: (BuildContext context, GoRouterState state) {
+
               return ProjectsView();
               // }
             },

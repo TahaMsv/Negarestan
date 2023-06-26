@@ -14,6 +14,8 @@ import '../../core/utils/failure_handler.dart';
 import '../home/home_state.dart';
 import 'package:dio/dio.dart';
 
+import '../projects/projects_controller.dart';
+
 class ProfileController extends MainController {
   final ProfileState profileState = getIt<ProfileState>();
   final ProfileRepository profileRepository = getIt<ProfileRepository>();
@@ -36,6 +38,8 @@ class ProfileController extends MainController {
           print(user);
           loginController.clearLoginForm();
           if (fromLogin) {
+            final ProjectsController projectsController = getIt<ProjectsController>();
+            projectsController.fetchSuggestedProjects();
             nav.goToName(RouteNames.projects);
           }
         }

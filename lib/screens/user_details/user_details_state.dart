@@ -24,6 +24,8 @@ class UserDetailsState with ChangeNotifier {
     notifyListeners();
   }
 
+
+
   bool _isFollowed = true;
 
   bool get isFollowed => _isFollowed;
@@ -32,5 +34,4 @@ class UserDetailsState with ChangeNotifier {
     _isFollowed = val;
     notifyListeners();
   }
-
 }

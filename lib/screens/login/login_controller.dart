@@ -13,6 +13,7 @@ import '../../core/dependency_injection.dart';
 import '../../core/interfaces/controller.dart';
 import '../../core/utils/failure_handler.dart';
 import '../../screens/login/login_repository.dart';
+import '../projects/projects_controller.dart';
 import 'usecases/login_usecase.dart';
 import 'login_state.dart';
 
@@ -79,7 +80,6 @@ class LoginController extends MainController {
         isSuccess = true;
         final ProfileController profileController = getIt<ProfileController>();
         profileController.me(token, true);
-
       });
 
       if (isSuccess) {}
@@ -143,6 +143,8 @@ class LoginController extends MainController {
         final HomeState homeState = getIt<HomeState>();
         homeState.setUser(user);
         clearSignUpForm();
+        final ProjectsController projectsController = getIt<ProjectsController>();
+        projectsController.fetchSuggestedProjects();
         nav.goToName(RouteNames.projects);
       });
       loginState.setLoginLoading(false);

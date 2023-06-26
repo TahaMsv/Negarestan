@@ -9,6 +9,8 @@ import '../../core/constants/assets.dart';
 import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 
+import '../post_details/post_details_controller.dart';
+
 class ProjectsView extends StatelessWidget {
   ProjectsView({Key? key}) : super(key: key);
   final ProjectsController projectsController = getIt<ProjectsController>();
@@ -42,6 +44,8 @@ class ProjectsView extends StatelessWidget {
                           projectsState.projects.length,
                           (index) => GestureDetector(
                             onTap: () {
+                              final PostDetailsController postDetailsController = getIt<PostDetailsController>();
+                              postDetailsController.fetchProjectDetails(projectID: projectsState.projects[index].id.toString());
                               projectsController.nav.pushNamed('postDetails');
                             },
                             child: Card(

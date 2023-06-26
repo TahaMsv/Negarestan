@@ -32,113 +32,122 @@ class PostDetailsView extends StatelessWidget {
     ];
     double galleryWidth = width - 26;
     return Scaffold(
-      backgroundColor:  MyColors.black,
+      backgroundColor: MyColors.black,
       body: Container(
         // height: height,
-        color:  MyColors.black,
-        child: ListView(
-          children: [
-            Container(
-              color: MyColors.black,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              child: ListView(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
+        color: MyColors.black,
+        child: postDetailsState.userDetails == null
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
                 children: [
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Project name',
-                                // textAlign: TextAlign.center,
-                                style: const TextStyle(color: MyColors.white, fontSize: 19),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Username of artist',
-                                // textAlign: TextAlign.center,
-                                style: const TextStyle(color: MyColors.white, fontSize: 16),
-                              ),
-                            ],
-                          ),
-                          MyElevatedButton(
-                            height: 35,
-                            width: 100,
-                            // buttonText: userDetailsState.isFollowed ? "Unfollow" : "Follow",
-                            buttonText: "Follow",
-                            // bgColor: userDetailsState.isFollowed ?MyColors.darkGrey: MyColors.darkBlue,
-                            bgColor: MyColors.darkBlue,
-                            function: () {},
-                            textColor: Colors.white,
-                            fgColor: Colors.white,
-                            borderRadius: 20,
-                            // borderColor: Colors.white,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.favorite, color: MyColors.red, size: 25),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.save_alt, color: MyColors.white, size: 25),
-                          )
-                        ],
-                      )
-                    ],
+                  Container(
+                    color: MyColors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      children: [
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      postDetailsState.projectDetails!.title,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: MyColors.white, fontSize: 27),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      postDetailsState.userDetails!.username!,
+                                      // textAlign: TextAlign.center,
+                                      style: TextStyle(color: MyColors.white, fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                MyElevatedButton(
+                                  height: 35,
+                                  width: 100,
+                                  // buttonText: userDetailsState.isFollowed ? "Unfollow" : "Follow",
+                                  buttonText: "Follow",
+                                  // bgColor: userDetailsState.isFollowed ?MyColors.darkGrey: MyColors.darkBlue,
+                                  bgColor: MyColors.darkBlue,
+                                  function: () {},
+                                  textColor: Colors.white,
+                                  fgColor: Colors.white,
+                                  borderRadius: 20,
+                                  // borderColor: Colors.white,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              postDetailsState.projectDetails!.description,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: MyColors.white, fontSize: 20),
+                            ),
+
+                            SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.favorite, color: MyColors.red, size: 25),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.save_alt, color: MyColors.white, size: 25),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        Container(
+                            // width: width,
+                            // color: Colors.red,
+                            height: 300,
+                            child: PrefetchImageDemo()),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Container(
-                      // width: width,
-                      // color: Colors.red,
-                      height: 300,
-                      child: PrefetchImageDemo()),
-
-
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      'More like this',
+                      // textAlign: TextAlign.center,
+                      style: const TextStyle(color: MyColors.white, fontSize: 19),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    color: MyColors.black,
+                    alignment: Alignment.topCenter,
+                    child: TrendPostsList(
+                      galleryWidth: galleryWidth,
+                      posts: trendsPost,
+                      numberOfPosts: 6,
+                    ),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: Text(
-                'More like this',
-                // textAlign: TextAlign.center,
-                style: const TextStyle(color: MyColors.white, fontSize: 19),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              color:  MyColors.black,
-              alignment: Alignment.topCenter,
-              child: TrendPostsList(galleryWidth: galleryWidth, posts: trendsPost, numberOfPosts: 6,),
-            ),
-          ],
-        ),
       ),
     );
   }
