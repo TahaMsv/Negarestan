@@ -26,9 +26,13 @@ class ProfileState with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeProject(int projectID) {
+    projects.removeWhere((element) => element.id == projectID);
+    notifyListeners();
+  }
+
   // final TextEditingController usernameC = TextEditingController();
   final TextEditingController lastNameC = TextEditingController();
   final TextEditingController firstNameC = TextEditingController();
   final TextEditingController emailC = TextEditingController();
-
 }

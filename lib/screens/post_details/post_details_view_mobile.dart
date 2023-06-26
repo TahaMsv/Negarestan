@@ -51,6 +51,28 @@ class PostDetailsView extends StatelessWidget {
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        if (postDetailsState.projectDetails!.user == homeState.user.id)
+                          Container(
+                            padding: const EdgeInsets.all(8.0),
+                            margin: const EdgeInsets.only(bottom: 20.0),
+                            child: MyElevatedButton(
+                              height: 50,
+                              width: 150,
+                              buttonText: "Delete project",
+                              fontSize: 15,
+                              borderRadius: 20,
+                              bgColor: MyColors.red,
+                              textColor: MyColors.white,
+                              fgColor: MyColors.white,
+                              // isLoading: loginState.loginLoading,
+                              function: () async {
+                                deleteProjectDialog(context, postDetailsState.projectDetails!.id);
+                              },
+                            ),
+                          ),
                         Column(
                           children: [
                             Row(
@@ -172,7 +194,7 @@ class PostDetailsView extends StatelessWidget {
                               if (postDetailsState.comments[index].user == homeState.user.id)
                                 IconButton(
                                     onPressed: () {
-                                      _asyncConfirmDialog(context, postDetailsState.comments[index].id);
+                                      removeCommentDialog(context, postDetailsState.comments[index].id);
                                     },
                                     icon: Icon(
                                       Icons.close,
@@ -207,6 +229,7 @@ class PostDetailsView extends StatelessWidget {
                             width: 150,
                             buttonText: "Add comment",
                             fontSize: 15,
+                            borderRadius: 15,
                             bgColor: MyColors.myBlue,
                             textColor: MyColors.white,
                             fgColor: MyColors.white,
@@ -292,7 +315,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
 
 enum ConfirmAction { Cancel, Accept }
 
-Future<Future<ConfirmAction?>> _asyncConfirmDialog(BuildContext context, int commentID) async {
+Future<Future<ConfirmAction?>> removeCommentDialog(BuildContext context, int commentID) async {
   return showDialog<ConfirmAction>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
@@ -321,6 +344,43 @@ Future<Future<ConfirmAction?>> _asyncConfirmDialog(BuildContext context, int com
               final PostDetailsController postDetailsController = getIt<PostDetailsController>();
               await postDetailsController.deleteComment(commentID);
               Navigator.of(context).pop(ConfirmAction.Accept);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<Future<ConfirmAction?>> deleteProjectDialog(BuildContext context, int projectId) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Delete project'),
+        content: const Text('Are you sure?'),
+        actions: <Widget>[
+          MyElevatedButton(
+            height: 30,
+            width: 80,
+            buttonText: "No",
+            textColor: Colors.black,
+            bgColor: Colors.blueAccent,
+            function: () {
+              Navigator.of(context).pop(ConfirmAction.Cancel);
+            },
+          ),
+          MyElevatedButton(
+            height: 30,
+            width: 80,
+            buttonText: "Yes",
+            textColor: Colors.black,
+            bgColor: Colors.blueAccent,
+            function: () async {
+              final PostDetailsController postDetailsController = getIt<PostDetailsController>();
+              Navigator.of(context).pop(ConfirmAction.Accept);
+              await postDetailsController.deleteProject(projectId);
             },
           ),
         ],

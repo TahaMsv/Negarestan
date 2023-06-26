@@ -127,7 +127,6 @@ class PostDetailsController extends MainController {
 
   Future<void> deleteComment(int commentID) async {
     try {
-      print("144 rm");
       final dio = Dio();
       final HomeState homeState = getIt<HomeState>();
       String token = homeState.user.token!;
@@ -135,11 +134,28 @@ class PostDetailsController extends MainController {
       final response = await dio.delete(
         '${Apis.baseUrl}projects/${postDetailsState.projectDetails!.id}/comment/$commentID/v0/',
       );
-      print("152 rm");
       if (response.statusCode == 200) {
-        print("154 rm");
         postDetailsState.removeComment(commentID);
-        print("157 rm");
+      }
+    } catch (e) {}
+  }
+
+  Future<void> deleteProject(projectId) async {
+    try {
+      final dio = Dio();
+      print("150 rm");
+      final HomeState homeState = getIt<HomeState>();
+      String token = homeState.user.token!;
+      dio.options.headers["Authorization"] = "Token $token";
+      final response = await dio.delete(
+        '${Apis.baseUrl}projects/$projectId/v0/',
+      );
+      print("153 rm");
+
+      if (response.statusCode == 204) {
+        print("156 rm");
+
+        nav.pop();
       }
     } catch (e) {}
   }

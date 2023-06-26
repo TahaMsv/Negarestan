@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import '../../widgets/UserStats.dart';
 import '../../widgets/UserTextInput.dart';
 import '../../widgets/image_circle_avatar.dart';
+import '../post_details/post_details_controller.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
@@ -152,6 +153,8 @@ class ProfileView extends StatelessWidget {
                                 profileState.projects.length,
                                 (index) => GestureDetector(
                                   onTap: () {
+                                    final PostDetailsController postDetailsController = getIt<PostDetailsController>();
+                                    postDetailsController.fetchProjectDetails(projectID: profileState.projects[index].id.toString());
                                     profileController.nav.pushNamed('postDetails');
                                   },
                                   child: Card(
