@@ -9,4 +9,6 @@ class Apis {
   static const unfollow = 'users/unfollow/v0/';
   static const me = 'users/me/v0/';
   static const search = 'users/search/v0/';
+  static const createProject = 'projects/v0/';
+  static const getProjects = 'projects/v0/';
 }

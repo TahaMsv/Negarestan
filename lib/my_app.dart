@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/navigation/router.dart';
 import 'core/utils/MultiLanguages.dart';
@@ -60,11 +60,11 @@ class _MyAppState extends State<MyApp> {
         Locale("en", "US"),
         Locale.fromSubtags(languageCode: 'fa'),
       ],
-      localizationsDelegates: const [
-        MultiLanguages.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
+      // localizationsDelegates: const [
+      //   MultiLanguages.delegate,
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
       locale: _locale,
       localeResolutionCallback: (locale, supportedLocales) {
         for (var supportedLocale in supportedLocales) {

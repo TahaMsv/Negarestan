@@ -3,15 +3,26 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/classes/Project.dart';
+
 class ProfileState with ChangeNotifier {
   setState() => notifyListeners();
 
-  bool _isLoading = false;
+  bool loading = false;
 
-  bool get isLoading => _isLoading;
+  bool get isLoading => loading;
 
-  void setIsLoading(bool val) {
-    _isLoading = val;
+  void setLoading(bool val) {
+    loading = val;
+    notifyListeners();
+  }
+
+  List<Project> _projects = [];
+
+  List<Project> get projects => _projects;
+
+  void setProjects(List<Project> val) {
+    _projects = val;
     notifyListeners();
   }
 

@@ -5,6 +5,7 @@ import 'package:negarestan/screens/profile/profile_repository.dart';
 import 'package:negarestan/screens/profile/profile_state.dart';
 import 'package:negarestan/screens/profile/usecases/me_usecase.dart';
 
+import '../../core/classes/Project.dart';
 import '../../core/classes/user.dart';
 import '../../core/constants/route_names.dart';
 import '../../core/dependency_injection.dart';
@@ -19,24 +20,9 @@ class ProfileController extends MainController {
 
   late MeUseCase meUseCase = MeUseCase(repository: profileRepository);
 
-  // void me() async {
-  //   if (!profileState.isLoading) {
-  //     profileState.setIsLoading(true);
-  //     MeRequest meRequest = MeRequest();
-  //     final fOrMe = await meUseCase(request: meRequest);
-  //     print("here65");
-  //     fOrMe.fold((f) => FailureHandler.handle(f, retry: () => me()), (user) async {
-  //       final HomeState homeState = getIt<HomeState>();
-  //       homeState.setUser(user);
-  //       nav.goToName(RouteNames.projects);
-  //     });
-  //   }
-  //   profileState.setIsLoading(false);
-  // }
-
-  void me(String token, bool fromLogin) async {
+  Future<void> me(String token, bool fromLogin) async {
     if (!profileState.isLoading) {
-      profileState.setIsLoading(true);
+      profileState.setLoading(true);
       try {
         final dio = Dio();
         dio.options.headers["Authorization"] = "Token $token";
@@ -54,21 +40,18 @@ class ProfileController extends MainController {
           }
         }
       } catch (ex) {
-        profileState.setIsLoading(false);
+        profileState.setLoading(false);
       }
     }
-    profileState.setIsLoading(false);
+    profileState.setLoading(false);
   }
 
   Future<void> editUser() async {
     final HomeState homeState = getIt<HomeState>();
     String token = homeState.user.token!;
-    print("Here 66");
     if (!profileState.isLoading) {
-      print("Here 68");
-      profileState.setIsLoading(true);
+      profileState.setLoading(true);
       try {
-        print("Here 71");
         final dio = Dio();
         dio.options.headers["Authorization"] = "Token $token";
         final response = await dio.put(Apis.baseUrl + Apis.me, data: {
@@ -76,9 +59,7 @@ class ProfileController extends MainController {
           "first_name": profileState.firstNameC.text,
           "last_name": profileState.lastNameC.text,
         });
-        print("Here 79");
         if (response.statusCode == 200) {
-          print("Here 81");
           User user = User.fromJson(response.data);
           final HomeState homeState = getIt<HomeState>();
           final LoginController loginController = getIt<LoginController>();
@@ -86,10 +67,31 @@ class ProfileController extends MainController {
           homeState.setUser(user);
         }
       } catch (ex) {
-        profileState.setIsLoading(false);
+        profileState.setLoading(false);
       }
     }
-    profileState.setIsLoading(false);
+    profileState.setLoading(false);
+  }
+
+  void fetchMyProjects() async {
+    if (!profileState.loading) {
+      profileState.setLoading(true);
+      try {
+        final dio = Dio();
+        final HomeState homeState = getIt<HomeState>();
+        String token = homeState.user.token!;
+        dio.options.headers["Authorization"] = "Token $token";
+        final response = await dio.get(Apis.baseUrl + Apis.getProjects);
+        if (response.statusCode == 200) {
+          print(response.data);
+          profileState.setProjects(List<Project>.from(response.data.map((x) => Project.fromJson(x))));
+          print(profileState.projects);
+        }
+      } catch (e) {
+        profileState.setLoading(false);
+      }
+    }
+    profileState.setLoading(false);
   }
 
   @override

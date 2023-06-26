@@ -138,7 +138,7 @@ class MyTheme {
 
   static ThemeData dark = ThemeData.dark().copyWith(
     primaryColor: Colors.deepPurple,
-    accentColor: Colors.grey,
+    // accentColor: Colors.grey,
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
       primary: Colors.deepOrange,

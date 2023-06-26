@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:negarestan/core/constants/route_names.dart';
 import 'package:negarestan/screens/profile/profile_controller.dart';
+import 'package:negarestan/screens/projects/projects_controller.dart';
+import 'package:negarestan/screens/projects/projects_state.dart';
 
 import '../../core/classes/user.dart';
 import '../../core/constants/apis.dart';
@@ -13,9 +15,11 @@ class HomeController extends MainController {
   final HomeState homeState = getIt<HomeState>();
   final HomeRepository homeRepository = getIt<HomeRepository>();
 
-  void goToPage(int index) {
+  void goToPage(int index) async {
     switch (index) {
       case 0:
+        final ProjectsController projectsController = getIt<ProjectsController>();
+        // projectsController.fetchProjects();
         nav.goToName(RouteNames.projects);
         break;
       case 1:
@@ -27,7 +31,8 @@ class HomeController extends MainController {
       case 3:
         nav.goToName(RouteNames.profile);
         final ProfileController profileController = getIt<ProfileController>();
-        profileController.me(homeState.user.token!, false);
+        await profileController.me(homeState.user.token!, false);
+        profileController.fetchMyProjects();
         break;
     }
   }

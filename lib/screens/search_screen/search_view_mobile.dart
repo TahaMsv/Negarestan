@@ -12,14 +12,14 @@ import '../../core/dependency_injection.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+// import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import '../../widgets/trens_post.dart';
 import '../home/home_controller.dart';
 
 class SearchView extends StatelessWidget {
   SearchView({Key? key}) : super(key: key);
-  final SearchController searchController = getIt<SearchController>();
+  // final SearchController searchController = getIt<SearchController>();
 
   @override
   Widget build(BuildContext context) {

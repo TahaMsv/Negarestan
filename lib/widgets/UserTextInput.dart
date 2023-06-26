@@ -30,7 +30,7 @@ class UserTextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String languageCode = MultiLanguages.of(context)!.locale.languageCode;
+    // String languageCode = MultiLanguages.of(context)!.locale.languageCode;
     return Container(
       height: height,
       width: width,
@@ -46,7 +46,7 @@ class UserTextInput extends StatelessWidget {
           controller: controller,
           style: TextStyle(fontSize: fontSize, color: textColor),
           decoration: InputDecoration(
-            contentPadding: languageCode == 'en' ? const EdgeInsets.all(10.0) : const EdgeInsets.all(5.0),
+            contentPadding: const EdgeInsets.all(10.0),
             border: InputBorder.none,
             hintStyle: TextStyle(color: hintColor),
             hintText: hint,

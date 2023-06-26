@@ -2,8 +2,12 @@ import 'dart:io';
 
 // import 'package:image_picker/image_picker.dart';
 
+import 'package:dio/dio.dart';
+
+import '../../core/constants/apis.dart';
 import '../../core/dependency_injection.dart';
 import '../../core/interfaces/controller.dart';
+import '../home/home_state.dart';
 import 'create_post__state.dart';
 import 'create_post_repository.dart';
 
@@ -30,6 +34,42 @@ class CreatePostController extends MainController {
   //     createPostState.setState();
   //   }
   // }
+
+  void createProject() async {
+    if (!createPostState.loading) {
+      createPostState.setLoading(true);
+      try {
+        final dio = Dio();
+        final HomeState homeState = getIt<HomeState>();
+        String token = homeState.user.token!;
+        dio.options.headers["Authorization"] = "Token $token";
+        dio.options.headers['Content-Type'] = 'application/json';
+
+        final response = await dio.post(
+          Apis.baseUrl + Apis.createProject,
+          data: {
+            "title": createPostState.postNameC.text,
+            "description": createPostState.postDescriptionC.text,
+            "awards": "",
+            "labels": createPostState.selectedLabels,
+            "tools": [],
+            "institutions": [],
+          },
+        );
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          print("62 cr pro");
+          createPostState.postNameC.clear();
+          createPostState.postDescriptionC.clear();
+          createPostState.setSelectedLabels([]);
+        }
+      } catch (e) {
+        print(e.toString());
+        createPostState.setLoading(false);
+      }
+    }
+    createPostState.setLoading(false);
+  }
 
   @override
   void onCreate() {}
