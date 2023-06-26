@@ -32,6 +32,7 @@ class PostDetailsController extends MainController {
         print("34 p d");
         postDetailsState.setIsFollowBtnNeeded(homeState.user != user);
         postDetailsState.setIsFollowed(homeState.user.followings!.contains(user));
+        postDetailsState.setIsLiked(postDetailsState.projectDetails!.likes.contains(homeState.user.username));
       }
     } catch (e) {}
   }
@@ -60,6 +61,52 @@ class PostDetailsController extends MainController {
       }
     }
     postDetailsState.setLoading(false);
+  }
+
+  void changeLikeStateOfProject(String projectId) async {
+    if (!postDetailsState.loading) {
+      postDetailsState.setLoading(true);
+      try {
+        print("44 p d");
+        final dio = Dio();
+        final HomeState homeState = getIt<HomeState>();
+        String token = homeState.user.token!;
+        dio.options.headers["Authorization"] = "Token $token";
+        final response = await dio.post(
+          '${Apis.baseUrl}projects/$projectId/like/v0/',
+        );
+        print("52 p d");
+        if (response.statusCode == 200) {
+          postDetailsState.setIsLiked(!postDetailsState.isLiked);
+        }
+      } catch (e) {
+        postDetailsState.setLoading(false);
+      }
+    }
+    postDetailsState.setLoading(false);
+  }
+
+  void changeBookmarkStateOfProject(String projectId) async {
+    // if (!postDetailsState.loading) {
+    // postDetailsState.setLoading(true);
+    // try {
+    //   print("44 p d");
+    //   final dio = Dio();
+    //   final HomeState homeState = getIt<HomeState>();
+    //   String token = homeState.user.token!;
+    //   dio.options.headers["Authorization"] = "Token $token";
+    //   final response = await dio.post(
+    //     '${Apis.baseUrl}projects/$projectId/like/v0/',
+    //   );
+    //   print("52 p d");
+    //   if (response.statusCode == 200) {
+    postDetailsState.setIsBookmarked(!postDetailsState.isBookmarked);
+    //     }
+    //   } catch (e) {
+    //     postDetailsState.setLoading(false);
+    //   }
+    // }
+    // postDetailsState.setLoading(false);
   }
 
   @override

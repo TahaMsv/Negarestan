@@ -40,7 +40,7 @@ class UserStats extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Text(
-                      "60",
+                      user,
                       style: MyTextTheme.boldWhite24,
                     ),
                     Text(

@@ -19,6 +19,24 @@ class PostDetailsState with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLiked = false;
+
+  bool get isLiked => _isLiked;
+
+    void setIsLiked(bool val) {
+      _isLiked = val;
+      notifyListeners();
+    }
+
+    bool _isBookmarked = false;
+
+    bool get isBookmarked => _isBookmarked;
+
+      void setIsBookmarked(bool val) {
+        _isBookmarked = val;
+        notifyListeners();
+      }
+
   User? userDetails;
 
   void setUserDetails(User? user) {

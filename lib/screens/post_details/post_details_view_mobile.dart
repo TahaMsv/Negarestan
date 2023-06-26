@@ -37,7 +37,7 @@ class PostDetailsView extends StatelessWidget {
       body: Container(
         // height: height,
         color: MyColors.black,
-        child: postDetailsState.userDetails == null
+        child: postDetailsState.userDetails == null || postDetailsState.loading
             ? Center(child: CircularProgressIndicator())
             : ListView(
                 children: [
@@ -99,21 +99,22 @@ class PostDetailsView extends StatelessWidget {
                                 //     : Container(),
                               ],
                             ),
-
                             SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.favorite, color: MyColors.red, size: 25),
+                                  onPressed: () {
+                                    postDetailsController.changeLikeStateOfProject(postDetailsState.projectDetails!.id.toString());
+                                  },
+                                  icon: Icon(Icons.favorite, color: postDetailsState.isLiked ? MyColors.red : MyColors.white, size: 25),
                                 ),
                                 SizedBox(
                                   width: 5,
                                 ),
                                 IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.save_alt, color: MyColors.white, size: 25),
+                                  icon: Icon(Icons.bookmark_border, color: MyColors.white, size: 25),
                                 )
                               ],
                             )
