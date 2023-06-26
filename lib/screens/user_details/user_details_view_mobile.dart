@@ -80,9 +80,9 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                           height: 35,
                           width: 200,
                           buttonText: userDetailsState.isFollowed ? "Unfollow" : "Follow",
-                          bgColor: userDetailsState.isFollowed ?MyColors.darkGrey: MyColors.darkBlue,
+                          bgColor: userDetailsState.isFollowed ? MyColors.darkGrey : MyColors.darkBlue,
                           function: () {
-                            userDetailsController.changeStateOfFollow();
+                            userDetailsController.changeStateOfFollow(userDetailsState.isFollowed, userDetailsState.userDetails!.id.toString());
                           },
                           textColor: Colors.white,
                           fgColor: Colors.white,

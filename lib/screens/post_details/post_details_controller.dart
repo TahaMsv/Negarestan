@@ -14,32 +14,26 @@ class PostDetailsController extends MainController {
   final PostDetailsRepository postDetailsRepository = getIt<PostDetailsRepository>();
 
   Future<void> getUserDetails({required String userID}) async {
-    if (!postDetailsState.loading) {
-      postDetailsState.setLoading(true);
-      try {
-        print("20 p d");
-        final dio = Dio();
-        final HomeState homeState = getIt<HomeState>();
-        String token = homeState.user.token!;
-        dio.options.headers["Authorization"] = "Token $token";
-        print("25 p d");
-        final response = await dio.get(
-          '${Apis.baseUrl}users/$userID/v0/',
-        );
-        print("29 p d");
-        if (response.statusCode == 200) {
-          print("31 p d");
-          User user = User.fromJson(response.data);
-          postDetailsState.setUserDetails(user);
-          print("34 p d");
-          postDetailsState.setIsFollowBtnNeeded(homeState.user != user);
-          postDetailsState.setIsFollowed(homeState.user.followings!.contains(user));
-        }
-      } catch (e) {
-        postDetailsState.setLoading(false);
+    try {
+      print("20 p d");
+      final dio = Dio();
+      final HomeState homeState = getIt<HomeState>();
+      String token = homeState.user.token!;
+      dio.options.headers["Authorization"] = "Token $token";
+      print("25 p d");
+      final response = await dio.get(
+        '${Apis.baseUrl}users/$userID/v0/',
+      );
+      print("29 p d");
+      if (response.statusCode == 200) {
+        print("31 p d");
+        User user = User.fromJson(response.data);
+        postDetailsState.setUserDetails(user);
+        print("34 p d");
+        postDetailsState.setIsFollowBtnNeeded(homeState.user != user);
+        postDetailsState.setIsFollowed(homeState.user.followings!.contains(user));
       }
-    }
-    postDetailsState.setLoading(false);
+    } catch (e) {}
   }
 
   void fetchProjectDetails({required String projectID}) async {
@@ -59,7 +53,6 @@ class PostDetailsController extends MainController {
           Project project = Project.fromJson(response.data);
           postDetailsState.setProjectDetails(project);
           print("56 p d");
-          postDetailsState.setLoading(false);
           await getUserDetails(userID: project.user.toString());
         }
       } catch (e) {

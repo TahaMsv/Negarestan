@@ -48,7 +48,7 @@ class UserDetailsController extends MainController {
   //     userDetailsState.setIsLoading(false);
   //   }
   // }
-  void getUserDetails({required String userID}) async {
+  Future<void> getUserDetails({required String userID}) async {
     print("here51");
     if (!userDetailsState.isLoading) {
       nav.pushNamed("userDetails");
@@ -94,15 +94,15 @@ class UserDetailsController extends MainController {
   //   userDetailsState.setIsFollowed(true);
   // }
 
-  void changeStateOfFollow() async {
-    if (userDetailsState.isFollowed) {
-      unfollow();
+  void changeStateOfFollow(bool isFollowed, String userId) async {
+    if (isFollowed) {
+      unfollow(userId);
     } else {
-      follow();
+      follow(userId);
     }
   }
 
-  void follow() async {
+  void follow(String userId) async {
     if (!userDetailsState.isLoading) {
       userDetailsState.setIsLoading(true);
       try {
@@ -113,13 +113,12 @@ class UserDetailsController extends MainController {
         dio.options.headers['Content-Type'] = 'application/json';
         final response = await dio.post(
           Apis.baseUrl + Apis.follow,
-          data: {"user_id": '${userDetailsState.userDetails!.id}'},
+          data: {"user_id": '$userId'},
         );
         print(response.statusCode);
         if (response.statusCode == 200) {
           userDetailsState.setIsFollowed(true);
           final PeopleState peopleState = getIt<PeopleState>();
-
         }
       } catch (e) {
         print(e.toString());
@@ -129,7 +128,7 @@ class UserDetailsController extends MainController {
     userDetailsState.setIsLoading(false);
   }
 
-  void unfollow() async {
+  void unfollow(String userId) async {
     if (!userDetailsState.isLoading) {
       userDetailsState.setIsLoading(true);
       try {
@@ -141,7 +140,7 @@ class UserDetailsController extends MainController {
 
         final response = await dio.post(
           Apis.baseUrl + Apis.unfollow,
-          data: {"user_id": '${userDetailsState.userDetails!.id}'},
+          data: {"user_id": '$userId'},
         );
         print(response.statusCode);
         if (response.statusCode == 200) {

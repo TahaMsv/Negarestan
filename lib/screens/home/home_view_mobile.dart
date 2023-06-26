@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:negarestan/core/constants/ui.dart';
 import 'package:negarestan/screens/login/login_controller.dart';
+import 'package:negarestan/screens/post_details/post_details_controller.dart';
 import 'package:negarestan/screens/user_details/user_details_controller.dart';
+import '../../core/classes/Project.dart';
 import '../../core/classes/user.dart';
 import '../../core/constants/assets.dart';
 import '../../core/constants/route_names.dart';
@@ -225,7 +227,7 @@ class _HomeViewState extends State<HomeView> {
 }
 
 class SearchPost extends SearchDelegate {
-  final _userList = [];
+  final HomeController homeController = getIt<HomeController>();
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -250,42 +252,48 @@ class SearchPost extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return FutureBuilder<List<String>>(
-        // future: _userList.getuserList(query: query),
-        future: Future.value(["Taha", "Amin", "Kiana", "Hasan"]),
+    return FutureBuilder<List<Project>>(
+        future: homeController.fetchSuggestedProjects(query),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          // List<User>? data = snapshot.data;
-          List<String>? data = ["Taha", "Amin", "Kiana", "Hasan"];
+          List<Project>? projects = snapshot.data;
           return Container(
             margin: EdgeInsets.only(top: 20),
             child: ListView.builder(
-                itemCount: data?.length,
+                itemCount: projects?.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     onTap: () {
-                      final HomeController homeController = getIt<HomeController>();
-
-                      // Navigator.pushNamed(context, RouteNames.people);
+                      final PostDetailsController postDetailsController = getIt<PostDetailsController>();
                       Navigator.pop(context);
-                      homeController.nav.pushNamed(RouteNames.userDetails);
+                      postDetailsController.fetchProjectDetails(projectID: projects[index].id.toString());
+                      homeController.nav.pushNamed('postDetails');
                     },
                     title: Row(
                       children: [
-                        CircleAvatar(),
+                        Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: MyColors.lightGrey2,
+                          ),
+                          child: Image(
+                            image: AssetImage(AssetImages.loginBG7),
+                          ),
+                        ),
                         SizedBox(width: 20),
                         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(
-                            '${data[index]}',
+                            projects![index].title,
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                           SizedBox(height: 10),
                           Text(
-                            '{data?[index].email}',
+                            projects[index].description,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
@@ -352,6 +360,7 @@ class SearchUser extends SearchDelegate {
                       final UserDetailsController userDetailsController = getIt<UserDetailsController>();
                       Navigator.pop(context);
                       userDetailsController.getUserDetails(userID: users[index].id.toString());
+                      userDetailsController.nav.pushNamed('userDetails');
                     },
                     title: Row(
                       children: [

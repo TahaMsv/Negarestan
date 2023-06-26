@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:negarestan/screens/post_details/post_details_controller.dart';
 import 'package:negarestan/screens/post_details/post_details_state.dart';
+import 'package:negarestan/screens/user_details/user_details_controller.dart';
 import '../../core/constants/assets.dart';
 import '../../core/constants/ui.dart';
 import '../../core/dependency_injection.dart';
@@ -50,11 +51,11 @@ class PostDetailsView extends StatelessWidget {
                         Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
                                       postDetailsState.projectDetails!.title,
@@ -62,7 +63,16 @@ class PostDetailsView extends StatelessWidget {
                                       style: TextStyle(color: MyColors.white, fontSize: 27),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      postDetailsState.projectDetails!.description,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: MyColors.white, fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
                                     Text(
                                       postDetailsState.userDetails!.username!,
@@ -71,29 +81,23 @@ class PostDetailsView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                MyElevatedButton(
-                                  height: 35,
-                                  width: 100,
-                                  // buttonText: userDetailsState.isFollowed ? "Unfollow" : "Follow",
-                                  buttonText: "Follow",
-                                  // bgColor: userDetailsState.isFollowed ?MyColors.darkGrey: MyColors.darkBlue,
-                                  bgColor: MyColors.darkBlue,
-                                  function: () {},
-                                  textColor: Colors.white,
-                                  fgColor: Colors.white,
-                                  borderRadius: 20,
-                                  // borderColor: Colors.white,
-                                )
+                                // postDetailsState.isFollowBtnNeeded
+                                //     ? MyElevatedButton(
+                                //         height: 35,
+                                //         width: 100,
+                                //         buttonText: postDetailsState.isFollowed ? "Unfollow" : "Follow",
+                                //         bgColor: postDetailsState.isFollowed ? MyColors.darkGrey : MyColors.darkBlue,
+                                //         function: () {
+                                //           final UserDetailsController userDetailsController = getIt<UserDetailsController>();
+                                //           userDetailsController.changeStateOfFollow(postDetailsState.isFollowed, postDetailsState.userDetails!.id.toString());
+                                //         },
+                                //         textColor: Colors.white,
+                                //         fgColor: Colors.white,
+                                //         borderRadius: 20,
+                                //         // borderColor: Colors.white,
+                                //       )
+                                //     : Container(),
                               ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              postDetailsState.projectDetails!.description,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: MyColors.white, fontSize: 20),
                             ),
 
                             SizedBox(height: 10),

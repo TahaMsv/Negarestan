@@ -61,15 +61,17 @@ class HomeController extends MainController {
     return [];
   }
 
-  Future<List<Project>> fetchSuggestedProjects() async {
+  Future<List<Project>> fetchSuggestedProjects(String query) async {
     if (!homeState.loading) {
       homeState.setLoading(true);
       try {
         final dio = Dio();
-        final HomeState homeState = getIt<HomeState>();
         String token = homeState.user.token!;
         dio.options.headers["Authorization"] = "Token $token";
-        final response = await dio.get(Apis.baseUrl + Apis.suggestProjects);
+        final response = await dio.get(
+          Apis.baseUrl + Apis.search,
+          queryParameters: {'type': 'project', 'query': query},
+        );
         if (response.statusCode == 200) {
           print(response.data);
           List<Project> suggestedList = List<Project>.from(response.data.map((x) => Project.fromJson(x)));
