@@ -23,19 +23,19 @@ class PostDetailsState with ChangeNotifier {
 
   bool get isLiked => _isLiked;
 
-    void setIsLiked(bool val) {
-      _isLiked = val;
-      notifyListeners();
-    }
+  void setIsLiked(bool val) {
+    _isLiked = val;
+    notifyListeners();
+  }
 
-    bool _isBookmarked = false;
+  bool _isBookmarked = false;
 
-    bool get isBookmarked => _isBookmarked;
+  bool get isBookmarked => _isBookmarked;
 
-      void setIsBookmarked(bool val) {
-        _isBookmarked = val;
-        notifyListeners();
-      }
+  void setIsBookmarked(bool val) {
+    _isBookmarked = val;
+    notifyListeners();
+  }
 
   User? userDetails;
 
@@ -68,4 +68,23 @@ class PostDetailsState with ChangeNotifier {
     _isFollowBtnNeeded = val;
     notifyListeners();
   }
+
+  List<Comment> comments = [];
+
+  void setComments(List<Comment> val) {
+    comments = val;
+    notifyListeners();
+  }
+
+  void addComment(Comment comment) {
+    comments.add(comment);
+    notifyListeners();
+  }
+
+  void removeComment(int commentId) {
+    comments.removeWhere((element) => element.id == commentId);
+    notifyListeners();
+  }
+
+  final TextEditingController commentC = TextEditingController();
 }

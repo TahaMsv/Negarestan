@@ -33,6 +33,7 @@ class PostDetailsController extends MainController {
         postDetailsState.setIsFollowBtnNeeded(homeState.user != user);
         postDetailsState.setIsFollowed(homeState.user.followings!.contains(user));
         postDetailsState.setIsLiked(postDetailsState.projectDetails!.likes.contains(homeState.user.username));
+        postDetailsState.setComments(postDetailsState.projectDetails!.comments);
       }
     } catch (e) {}
   }
@@ -64,26 +65,20 @@ class PostDetailsController extends MainController {
   }
 
   void changeLikeStateOfProject(String projectId) async {
-    if (!postDetailsState.loading) {
-      postDetailsState.setLoading(true);
-      try {
-        print("44 p d");
-        final dio = Dio();
-        final HomeState homeState = getIt<HomeState>();
-        String token = homeState.user.token!;
-        dio.options.headers["Authorization"] = "Token $token";
-        final response = await dio.post(
-          '${Apis.baseUrl}projects/$projectId/like/v0/',
-        );
-        print("52 p d");
-        if (response.statusCode == 200) {
-          postDetailsState.setIsLiked(!postDetailsState.isLiked);
-        }
-      } catch (e) {
-        postDetailsState.setLoading(false);
+    try {
+      print("44 p d");
+      final dio = Dio();
+      final HomeState homeState = getIt<HomeState>();
+      String token = homeState.user.token!;
+      dio.options.headers["Authorization"] = "Token $token";
+      final response = await dio.post(
+        '${Apis.baseUrl}projects/$projectId/like/v0/',
+      );
+      print("52 p d");
+      if (response.statusCode == 200) {
+        postDetailsState.setIsLiked(!postDetailsState.isLiked);
       }
-    }
-    postDetailsState.setLoading(false);
+    } catch (e) {}
   }
 
   void changeBookmarkStateOfProject(String projectId) async {
@@ -107,6 +102,46 @@ class PostDetailsController extends MainController {
     //   }
     // }
     // postDetailsState.setLoading(false);
+  }
+
+  void addComment() async {
+    String content = "";
+    content = postDetailsState.commentC.text.trim();
+    if (content == "") return;
+    try {
+      final dio = Dio();
+      final HomeState homeState = getIt<HomeState>();
+      String token = homeState.user.token!;
+      dio.options.headers["Authorization"] = "Token $token";
+      final response = await dio.post(
+        '${Apis.baseUrl}projects/${postDetailsState.projectDetails!.id}/comment/v0/',
+        data: {"comment": content},
+      );
+      if (response.statusCode == 200) {
+        Comment comment = Comment.fromJson(response.data);
+        postDetailsState.addComment(comment);
+        postDetailsState.commentC.clear();
+      }
+    } catch (e) {}
+  }
+
+  Future<void> deleteComment(int commentID) async {
+    try {
+      print("144 rm");
+      final dio = Dio();
+      final HomeState homeState = getIt<HomeState>();
+      String token = homeState.user.token!;
+      dio.options.headers["Authorization"] = "Token $token";
+      final response = await dio.delete(
+        '${Apis.baseUrl}projects/${postDetailsState.projectDetails!.id}/comment/$commentID/v0/',
+      );
+      print("152 rm");
+      if (response.statusCode == 200) {
+        print("154 rm");
+        postDetailsState.removeComment(commentID);
+        print("157 rm");
+      }
+    } catch (e) {}
   }
 
   @override

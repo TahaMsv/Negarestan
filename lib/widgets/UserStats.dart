@@ -4,15 +4,19 @@ import 'package:provider/provider.dart';
 import '../core/classes/user.dart';
 import '../core/constants/ui.dart';
 import '../screens/home/home_state.dart';
+import '../screens/profile/profile_state.dart';
 
 class UserStats extends StatelessWidget {
   const UserStats({
-    super.key, required this.user,
+    super.key,
+    required this.user,
   });
 
   final User user;
+
   @override
   Widget build(BuildContext context) {
+    ProfileState profileState = context.watch<ProfileState>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Container(
@@ -38,9 +42,9 @@ class UserStats extends StatelessWidget {
                 width: 100,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      user,
+                      profileState.projects.length.toString(),
                       style: MyTextTheme.boldWhite24,
                     ),
                     Text(

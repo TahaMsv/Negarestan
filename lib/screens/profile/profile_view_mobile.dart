@@ -92,15 +92,15 @@ class ProfileView extends StatelessWidget {
                   Center(
                     child: ToggleSwitch(
                       initialLabelIndex: 0,
-                      totalSwitches: 2,
+                      totalSwitches: 1,
                       fontSize: 17,
                       minWidth: 90,
                       activeBgColor: [Colors.blueAccent],
                       activeFgColor: Colors.white,
                       inactiveBgColor: MyColors.customGrey,
                       inactiveFgColor: MyColors.white,
-                      icons: [Icons.photo_library_outlined, Icons.favorite],
-                      customWidths: [width / 2.1, width / 2.1],
+                      icons: [Icons.photo_library_outlined],
+                      customWidths: [width / 1.1],
                       cornerRadius: 5.0,
                       // labels: const ['All Posts', 'Saved'],
                       // borderColor: [Colors.black12],

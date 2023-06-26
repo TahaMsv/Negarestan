@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:negarestan/screens/home/home_state.dart';
 import 'package:negarestan/screens/post_details/post_details_controller.dart';
 import 'package:negarestan/screens/post_details/post_details_state.dart';
 import 'package:negarestan/screens/user_details/user_details_controller.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../widgets/MyElevatedButton.dart';
+import '../../widgets/UserTextInput.dart';
 import '../../widgets/trens_post.dart';
 
 class PostDetailsView extends StatelessWidget {
@@ -20,6 +22,7 @@ class PostDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     PostDetailsState postDetailsState = context.watch<PostDetailsState>();
+    HomeState homeState = context.watch<HomeState>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     List trendsPost = [
@@ -113,8 +116,10 @@ class PostDetailsView extends StatelessWidget {
                                   width: 5,
                                 ),
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.bookmark_border, color: MyColors.white, size: 25),
+                                  onPressed: () {
+                                    postDetailsController.changeBookmarkStateOfProject("projectId");
+                                  },
+                                  icon: Icon(postDetailsState.isBookmarked ? Icons.bookmark : Icons.bookmark_border, color: MyColors.white, size: 25),
                                 )
                               ],
                             )
@@ -127,6 +132,92 @@ class PostDetailsView extends StatelessWidget {
                             child: PrefetchImageDemo()),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Comments',
+                      // textAlign: TextAlign.center,
+                      style: const TextStyle(color: MyColors.white, fontSize: 19),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: Wrap(
+                      children: List.generate(
+                        postDetailsState.comments.length,
+                        (index) => Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          margin: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Card(
+                                color: MyColors.white,
+                                // margin: const EdgeInsets.only(bottom: 20),
+                                child: Container(
+                                  margin: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
+                                  // height: 30,
+                                  width: 300,
+                                  // color: MyColors.blueAccent,
+                                  child: Text(postDetailsState.comments[index].content),
+                                ),
+                              ),
+                              if (postDetailsState.comments[index].user == homeState.user.id)
+                                IconButton(
+                                    onPressed: () {
+                                      _asyncConfirmDialog(context, postDetailsState.comments[index].id);
+                                    },
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: Colors.red,
+                                    ))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          UserTextInput(
+                            height: 70,
+                            hint: 'Comment',
+                            hintColor: Colors.white,
+                            textColor: Colors.white,
+                            controller: postDetailsState.commentC,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          MyElevatedButton(
+                            height: 50,
+                            width: 150,
+                            buttonText: "Add comment",
+                            fontSize: 15,
+                            bgColor: MyColors.myBlue,
+                            textColor: MyColors.white,
+                            fgColor: MyColors.white,
+                            // isLoading: loginState.loginLoading,
+                            function: () {
+                              postDetailsController.addComment();
+                            },
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                   SizedBox(
                     height: 20,
@@ -197,4 +288,43 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
       },
     ));
   }
+}
+
+enum ConfirmAction { Cancel, Accept }
+
+Future<Future<ConfirmAction?>> _asyncConfirmDialog(BuildContext context, int commentID) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Delete comment'),
+        content: const Text('Are you sure?'),
+        actions: <Widget>[
+          MyElevatedButton(
+            height: 30,
+            width: 80,
+            buttonText: "No",
+            textColor: Colors.black,
+            bgColor: Colors.blueAccent,
+            function: () {
+              Navigator.of(context).pop(ConfirmAction.Cancel);
+            },
+          ),
+          MyElevatedButton(
+            height: 30,
+            width: 80,
+            buttonText: "Yes",
+            textColor: Colors.black,
+            bgColor: Colors.blueAccent,
+            function: () async {
+              final PostDetailsController postDetailsController = getIt<PostDetailsController>();
+              await postDetailsController.deleteComment(commentID);
+              Navigator.of(context).pop(ConfirmAction.Accept);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
