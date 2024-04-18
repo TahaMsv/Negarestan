@@ -1,16 +1,9 @@
 # Maktoom
 
-A new Flutter project.
+Academic social network project focusing on the community of graphic artists
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+![image](https://github.com/TahaMsv/Negarestan/assets/66914340/2f02103c-d79d-4749-acd4-f8221bf70b28)
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://github.com/TahaMsv/Negarestan/assets/66914340/915968e7-874b-46ed-a333-5d902f436b49)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
